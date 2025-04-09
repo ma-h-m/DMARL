@@ -73,6 +73,8 @@ class PolicyWrapper:
         :param policy_path: 策略目录（如 "new_policy/policy_1"）
         """
         self.policy_path = policy_path
+        if policy_path is None:
+            return
         self.policy = self.load_policy()
     
     def load_policy(self):

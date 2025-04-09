@@ -1,12 +1,14 @@
 import torch
 import torch.optim as optim
-import numpy as np
 from tianshou.policy import A2CPolicy
 from tianshou.data import Batch
-from .model import A2CNetwork
+# from .model import Model
+from torch.distributions import Categorical
+def dist_fn(logits: torch.Tensor) -> Categorical:
+    return Categorical(logits=logits)
 
 class Policy:
-    def __init__(self, input_dim, action_dim, lr=1e-3):
+    def __init__(self, input_dim, action_dim, lr=1e-3, Model=None, env = None, agent_id = None):
         """
         Initialize the policy using Tianshou's A2CPolicy with a custom model.
 
@@ -15,13 +17,20 @@ class Policy:
         - action_dim (int): The number of possible actions.
         - lr (float): The learning rate for the optimizer.
         """
-        self.model = A2CNetwork(input_dim, action_dim)
+        # Initialize the combined model (Actor + Critic)
+        self.model = Model(input_dim, action_dim)
         self.optimizer = optim.Adam(self.model.parameters(), lr=lr)
-        
-        # Initialize the Tianshou A2C Policy
-        self.policy = A2CPolicy(self.model, self.optimizer)
-        self.action_dim = action_dim
 
+        # Initialize the Tianshou A2C Policy with our custom model
+        self.policy = A2CPolicy(
+            actor=self.model.actor,
+            critic=self.model.critic,
+            optim=self.optimizer,
+            dist_fn=dist_fn,
+            action_space=env.action_space(agent_id),  # Use the action space from the environment
+            action_scaling=False
+        )
+        self.action_dim = action_dim
 
     def train(self, batch_data):
         """

@@ -1,5 +1,5 @@
 #### File Structure
-Initial design:
+File structure design (continuing modifying when developing):
 
 marl_framework/
 │── config/                         # Configuration files
@@ -22,7 +22,7 @@ marl_framework/
 │── client/                          # Client-side code
 │   ├── client.py                     # Main client program
 │   ├── train.py                      # Training logic for policies
-│   ├── policy.py                     # Policy wrapper
+│   ├── policy_wrapper.py             # Policy wrapper
 │   ├── new_policy/                   # Folder for new policies created on client side
 │   │   ├── policy_1/                 # New policy 1
 │   │   │   ├── model.py              # Model code for policy 1
@@ -32,6 +32,10 @@ marl_framework/
 │   │   │   ├── model.py              # Model code for policy 2
 │   │   │   ├── agent.config          # Configuration file for policy 2 (includes role and idx)
 │   │   │   ├── policy.py             # Policy logic for policy 2 (training and inference logic)
+│   │   ├── policy_3/                 # New policy 3
+│   │   │   ├── model.py              # Model code for policy 3
+│   │   │   ├── agent.config          # Configuration file for policy 3 (includes role and idx)
+│   │   │   ├── policy.py             # Policy logic for policy 3 (training and inference logic)
 │   ├── temp_files/                   # Temporary files for each client thread
 │   │   ├── thread_1/                 # Folder for thread 1
 │   │   │   ├── policies/             # Stores multiple policies (training & environment)

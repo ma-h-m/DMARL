@@ -2,7 +2,8 @@ import os
 import shutil
 import sys
 import os
-
+import torch
+from tianshou.data import Batch
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from envs.env_wrapper import SimpleAdversaryWrapper as EnvWrapper
 def setup_temp_policies(thread_id: int, path_prefix: str = ''):
@@ -75,7 +76,7 @@ def generate_agent_params(policies_path: str):
             spec_model = importlib.util.spec_from_file_location("Model", model_file)
             model_module = importlib.util.module_from_spec(spec_model)
             spec_model.loader.exec_module(model_module)
-
+            
             # 确保 A2CNetwork 被正确导入
             Model = model_module.Model
 
@@ -87,7 +88,13 @@ def generate_agent_params(policies_path: str):
 
             # 创建 Policy 实例
             policy_instance = policy_module.Policy(input_dim, action_dim, lr, Model, env=env_wrapper.env, agent_id=agent_id)
-
+            policy_model_pth = os.path.join(policy_path, "model.pth")
+            optimizer_pth = os.path.join(policy_path, "optimizer.pth")
+            # 加载模型参数
+            if os.path.exists(policy_model_pth):
+                policy_instance.load(policy_model_pth, optimizer_pth)
+            else:
+                print(f"Model file {policy_model_pth} does not exist.")
             # 将 A2CNetwork 作为 policy_instance 的属性或传入创建
             # policy_instance.model = A2CNetwork(input_dim, action_dim)
 
@@ -118,10 +125,77 @@ def generate_agent_params(policies_path: str):
 
     print(f"Saved agent_params.json to {output_path}")
     return agent_info_list
-policies_path = setup_temp_policies(1, "client")
-agent_info_list = generate_agent_params(policies_path)
 
-# 现在可以访问每个策略实例：
-for agent_info in agent_info_list:
-    policy_instance = agent_info["policy_instance"]
-    print(f"Policy {agent_info['policy_id']} created with {policy_instance}")
+def sample_trajectory(agent_info_list, batch_size=4096):
+    env_wrapper = EnvWrapper()
+    max_steps = batch_size
+    trajectories = {agent_info["agent_id"]: [] for agent_info in agent_info_list}
+    while len(trajectories[agent_info_list[0]["agent_id"]]) < batch_size:
+        # 生成一个新的轨迹
+        observations = env_wrapper.reset()
+        step_count = 0
+        while step_count < max_steps:
+            
+            actions = {}
+            for agent_info in agent_info_list:
+                policy_instance = agent_info["policy_instance"]
+                action = policy_instance.predict(observations[agent_info["agent_id"]])
+                actions[agent_info["agent_id"]] = action
+            next_observations, rewards, dones, truncations, info = env_wrapper.step(actions)
+            
+            if next_observations == {}:
+                observations = env_wrapper.reset()
+                continue
+            done_all = all(dones.get(agent_info['agent_id'], False) or truncations.get(agent_info['agent_id'], False) for agent_info in agent_info_list)
+            if done_all:
+                observations = env_wrapper.reset()
+                continue
+            for agent_info in agent_info_list:
+                trajectories[agent_info["agent_id"]].append({
+                    "obs": observations[agent_info["agent_id"]],
+                    "act": actions[agent_info["agent_id"]],
+                    "rew": rewards[agent_info["agent_id"]],
+                    "obs_next": next_observations[agent_info["agent_id"]],
+                    "terminated": dones[agent_info["agent_id"]],
+                    "truncated": truncations[agent_info["agent_id"]],
+                    "info": info[agent_info["agent_id"]],
+                })
+            observations = next_observations
+            step_count += 1
+
+    return trajectories
+
+
+def train():
+
+
+    policies_path = setup_temp_policies(1, "client")
+    agent_info_list = generate_agent_params(policies_path)
+
+
+    # 现在可以访问每个策略实例：
+    for agent_info in agent_info_list:
+        policy_instance = agent_info["policy_instance"]
+        print(f"Policy {agent_info['policy_id']} created with {policy_instance}")
+
+    for i in range(100):
+        traj = sample_trajectory(agent_info_list, batch_size=2)
+        # print (i)
+
+        for agent_info in agent_info_list:
+            agent_data = traj[agent_info["agent_id"]]
+            batch = Batch({
+                "obs": [step["obs"] for step in agent_data],
+                "act": [step["act"] for step in agent_data],
+                "rew": [step["rew"] for step in agent_data],
+                "obs_next": [step["obs_next"] for step in agent_data],
+                "terminated": [step["terminated"] for step in agent_data],
+                "truncated": [step["truncated"] for step in agent_data],
+                "info": [step["info"] for step in agent_data],
+            })
+            policy_instance = agent_info["policy_instance"]
+            # 训练策略
+            # print(batch_data)
+            gradients = policy_instance.train(batch)
+    # print(traj)
+train()

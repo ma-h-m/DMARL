@@ -13,11 +13,14 @@ class Actor(nn.Module):
         self.policy_head = nn.Linear(128, action_dim)  # Discrete action space: raw action values
         self.action_type = "discrete"  # Change to "continuous" if using continuous actions
 
-    def forward(self, x):
+    def forward(self, x, state = None, info = None):
+        if not isinstance(x, torch.Tensor):
+            x = torch.tensor(x, dtype=torch.float32, device=next(self.parameters()).device)
+     
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         policy = self.policy_head(x)  # For discrete: logits, for continuous: action parameters
-        return policy
+        return policy, state
 
 
 class Critic(nn.Module):
@@ -30,7 +33,10 @@ class Critic(nn.Module):
         self.fc2 = nn.Linear(256, 128)
         self.value_head = nn.Linear(128, 1)  # Output state value
 
-    def forward(self, x):
+    def forward(self, x, state = None, info = None):
+        if not isinstance(x, torch.Tensor):
+            x = torch.tensor(x, dtype=torch.float32, device=next(self.parameters()).device)
+            
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         value = self.value_head(x)

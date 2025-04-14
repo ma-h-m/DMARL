@@ -84,6 +84,6 @@ class SimpleAdversaryWrapper:
         """
         self.env.close()  # 关闭环境
 
-tmp_env = SimpleAdversaryWrapper()
-print(tmp_env.env.agents)
+# tmp_env = SimpleAdversaryWrapper()
+# print(tmp_env.env.agents)
 # print(tmp_env.env.action_space)

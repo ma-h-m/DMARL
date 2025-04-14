@@ -2,11 +2,13 @@ import torch
 import torch.optim as optim
 from tianshou.policy import A2CPolicy
 from tianshou.data import Batch
+from tianshou.data import ReplayBuffer
 # from .model import Model
 from torch.distributions import Categorical
 def dist_fn(logits: torch.Tensor) -> Categorical:
     return Categorical(logits=logits)
-
+# from tianshou.data import policy_within_training_step, torch_train_mode
+from tianshou.utils.torch_utils import policy_within_training_step, torch_train_mode
 class Policy:
     def __init__(self, input_dim, action_dim, lr=1e-3, Model=None, env = None, agent_id = None):
         """
@@ -32,7 +34,7 @@ class Policy:
         )
         self.action_dim = action_dim
 
-    def train(self, batch_data):
+    def train(self, batch_data, batch_size = 32, repeat = 1):
         """
         Train the model using the provided batch data and return gradients for uploading.
 
@@ -47,23 +49,31 @@ class Policy:
         Returns:
         - gradients (list): List of gradients for each parameter.
         """
-        # Convert the batch data dictionary into Tianshou's Batch
-        batch = Batch(obs=torch.tensor(batch_data['obs'], dtype=torch.float32),
-                      act=torch.tensor(batch_data['action'], dtype=torch.long),
-                      rew=torch.tensor(batch_data['reward'], dtype=torch.float32),
-                      obs_next=torch.tensor(batch_data['next_obs'], dtype=torch.float32),
-                      done=torch.tensor(batch_data['done'], dtype=torch.float32))
+        buffer = ReplayBuffer(size = len(batch_data['obs']))
+        for i in range(len(batch_data['obs'])):
+            buffer.add(
+                Batch (
+                    obs = batch_data['obs'][i],
+                    act = batch_data['act'][i],
+                    rew = batch_data['rew'][i],
+                    obs_next = batch_data['obs_next'][i],
+                    terminated = batch_data['terminated'][i],
+                    truncated = batch_data['truncated'][i],
+                    info = {},
+                )
+            )
+        print(buffer)
+        # self.policy.learn(batch_data, batch_size = batch_size, repeat = repeat)
+        with policy_within_training_step(self.policy), torch_train_mode(self.policy):
+            self.policy.update(sample_size=0, buffer=buffer, batch_size=10, repeat=6).pprint_asdict()
 
-        # Perform the update with Tianshou's policy
-        self.policy.update(batch)
+        # # After update, get the gradients of the model parameters
+        # gradients = []
+        # for param in self.model.parameters():
+        #     if param.grad is not None:
+        #         gradients.append(param.grad.clone())  # Save the gradient for uploading
 
-        # After update, get the gradients of the model parameters
-        gradients = []
-        for param in self.model.parameters():
-            if param.grad is not None:
-                gradients.append(param.grad.clone())  # Save the gradient for uploading
-
-        return gradients
+        # return gradients
 
     def predict(self, state):
         """
@@ -75,8 +85,11 @@ class Policy:
         Returns:
         - action (torch.Tensor): The chosen action based on the policy.
         """
-        state = torch.tensor(state, dtype=torch.float32)
-        return self.policy.select(state)
+        state = torch.tensor(state, dtype=torch.float32).unsqueeze(0)
+        # action = policy(Batch(obs=np.array([obs]))).act[0]
+        # return self.policy(Batch(obs=state)).act[0]
+        return self.policy.compute_action(obs = state)
+        # return self.policy.select(state)
 
     def save(self, model_path, optimizer_path):
         """

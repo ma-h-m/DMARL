@@ -62,7 +62,7 @@ class Policy:
                     info = {},
                 )
             )
-        print(buffer)
+        # print(buffer)
         # self.policy.learn(batch_data, batch_size = batch_size, repeat = repeat)
         with policy_within_training_step(self.policy), torch_train_mode(self.policy):
             self.policy.update(sample_size=0, buffer=buffer, batch_size=10, repeat=6).pprint_asdict()

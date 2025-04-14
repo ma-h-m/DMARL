@@ -166,23 +166,19 @@ def sample_trajectory(agent_info_list, batch_size=4096):
     return trajectories
 
 
-def train():
+def train(epochs = 100, agent_info_list = None):
 
 
-    policies_path = setup_temp_policies(1, "client")
-    agent_info_list = generate_agent_params(policies_path)
 
-
-    # 现在可以访问每个策略实例：
-    for agent_info in agent_info_list:
-        policy_instance = agent_info["policy_instance"]
-        print(f"Policy {agent_info['policy_id']} created with {policy_instance}")
-
-    for i in range(100):
-        traj = sample_trajectory(agent_info_list, batch_size=2)
+    
+    avg_reward = 0
+    for i in range(epochs):
+        traj = sample_trajectory(agent_info_list, batch_size=4096)
         # print (i)
-
+        print(f"\nEpoch {i + 1}")
         for agent_info in agent_info_list:
+            if not agent_info["trainable"]:
+                continue
             agent_data = traj[agent_info["agent_id"]]
             batch = Batch({
                 "obs": [step["obs"] for step in agent_data],
@@ -197,5 +193,9 @@ def train():
             # 训练策略
             # print(batch_data)
             gradients = policy_instance.train(batch)
+            agent_id = agent_info["agent_id"]
+            rewards = [step["rew"] for step in agent_data]
+            avg_reward += sum(rewards) / len(rewards)
+            print(f"Agent {agent_id} trained with average reward: {avg_reward / len(agent_info_list)}")
     # print(traj)
-train()
+

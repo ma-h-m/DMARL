@@ -166,10 +166,10 @@ def sample_trajectory(agent_info_list, batch_size=4096):
     return trajectories
 
 
-def train(epochs = 100, agent_info_list = None):
+def train(epochs = 10, agent_info_list = None):
 
 
-
+    all_gradients = {}
     
     avg_reward = 0
     for i in range(epochs):
@@ -192,10 +192,18 @@ def train(epochs = 100, agent_info_list = None):
             policy_instance = agent_info["policy_instance"]
             # 训练策略
             # print(batch_data)
-            gradients = policy_instance.train(batch)
+            gradients_this_epoch = policy_instance.train(batch)
+            if agent_info["agent_id"] not in all_gradients:
+                all_gradients[agent_info["agent_id"]] = {
+                    key: value.detach().cpu().clone() for key, value in gradients_this_epoch.items()
+                }
+            else:
+                for key in all_gradients[agent_info["agent_id"]]:
+                    all_gradients[agent_info["agent_id"]][key] += gradients_this_epoch[key].detach().cpu()# all_gradients[agent_info["agent_id"]] = gradients
             agent_id = agent_info["agent_id"]
             rewards = [step["rew"] for step in agent_data]
-            avg_reward += sum(rewards) / len(rewards)
-            print(f"Agent {agent_id} trained with average reward: {avg_reward / len(agent_info_list)}")
+            avg_reward = sum(rewards) / len(rewards)
+            print(f"Agent {agent_id} trained with average reward: {avg_reward:.4f}")
+    return all_gradients
     # print(traj)
 

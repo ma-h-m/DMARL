@@ -1,7 +1,8 @@
 from train import *
-
+from utils import *
 if __name__ == "__main__":
     policies_path = setup_temp_policies(1, "client")
+    thread_path = os.path.dirname(policies_path)
     agent_info_list = generate_agent_params(policies_path)
 
 
@@ -12,4 +13,6 @@ if __name__ == "__main__":
 
 
 
-    train(agent_info_list=agent_info_list, epochs=100)
+    gradients = train(agent_info_list=agent_info_list, epochs=5)
+    gradients_path = save_all_gradients(gradients, save_dir=thread_path)
+    print(gradients)

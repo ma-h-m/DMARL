@@ -62,11 +62,29 @@ class Policy:
                     info = {},
                 )
             )
+        client_grads = {}
+
+        with policy_within_training_step(self.policy), torch_train_mode(self.policy):
+            for i in range(repeat):
+                result = self.policy.update(sample_size=0, buffer=buffer, batch_size=batch_size, repeat=1)
+
+                for name, param in self.policy.actor.named_parameters():
+                    if param.grad is not None:
+                        # 复制梯度张量，避免之后被覆盖
+                        if name not in client_grads:
+                            client_grads[name] = param.grad.clone()
+                        else:
+                            # 如果是累加式（例如像 A3C 那样），我们直接把梯度累加
+                            client_grads[name] += param.grad
+        return client_grads
+        # print(client_grads)
         # print(buffer)
         # self.policy.learn(batch_data, batch_size = batch_size, repeat = repeat)
-        with policy_within_training_step(self.policy), torch_train_mode(self.policy):
-            self.policy.update(sample_size=0, buffer=buffer, batch_size=10, repeat=6).pprint_asdict()
-
+        # with policy_within_training_step(self.policy), torch_train_mode(self.policy):
+        #     self.policy.update(sample_size=0, buffer=buffer, batch_size=batch_size, repeat=repeat).pprint_asdict()
+        # for name, param in self.policy.actor.named_parameters():
+        #     if param.grad is not None:
+        #         print(f"{name}: grad norm = {param.grad.norm().item()}")
         # # After update, get the gradients of the model parameters
         # gradients = []
         # for param in self.model.parameters():

@@ -67,15 +67,25 @@ class Policy:
         with policy_within_training_step(self.policy), torch_train_mode(self.policy):
             for i in range(repeat):
                 result = self.policy.update(sample_size=0, buffer=buffer, batch_size=batch_size, repeat=1)
-
                 for name, param in self.policy.actor.named_parameters():
                     if param.grad is not None:
+                        full_name = f"actor.{name}"
                         # 复制梯度张量，避免之后被覆盖
-                        if name not in client_grads:
-                            client_grads[name] = param.grad.clone()
+                        if full_name not in client_grads:
+                            client_grads[full_name] = param.grad.clone()
                         else:
                             # 如果是累加式（例如像 A3C 那样），我们直接把梯度累加
-                            client_grads[name] += param.grad
+                            client_grads[full_name] += param.grad
+                
+                for name, param in self.policy.critic.named_parameters():
+                    if param.grad is not None:
+                        full_name = f"critic.{name}"
+                        # 复制梯度张量，避免之后被覆盖
+                        if full_name not in client_grads:
+                            client_grads[full_name] = param.grad.clone()
+                        else:
+                            # 如果是累加式（例如像 A3C 那样），我们直接把梯度累加
+                            client_grads[full_name] += param.grad
         return client_grads
         # print(client_grads)
         # print(buffer)

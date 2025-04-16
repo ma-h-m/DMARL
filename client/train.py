@@ -9,7 +9,6 @@ from envs.env_wrapper import SimpleAdversaryWrapper as EnvWrapper
 def setup_temp_policies(thread_id: int, path_prefix: str = ''):
     """
     创建 temp_files/thread_{i}/policies 目录，
-    并将 new_policy 目录下的所有 policy_* 文件夹移动到该目录下。
     
     参数:
         thread_id (int): 当前线程编号，例如 1 表示 thread_1
@@ -25,24 +24,24 @@ def setup_temp_policies(thread_id: int, path_prefix: str = ''):
     policies_dest_path = os.path.join(temp_thread_path, "policies")
 
 
-    new_policy_src_path = os.path.join(path_prefix, "new_policy")
+    # new_policy_src_path = os.path.join(path_prefix, "new_policy")
 
-    # 创建 temp_files/thread_{i}/policies 目录
-    os.makedirs(policies_dest_path, exist_ok=True)
+    # # 创建 temp_files/thread_{i}/policies 目录
+    # os.makedirs(policies_dest_path, exist_ok=True)
 
-    # 遍历 new_policy 下所有 policy_*
-    for policy_name in os.listdir(new_policy_src_path):
-        src_path = os.path.join(new_policy_src_path, policy_name)
-        dst_path = os.path.join(policies_dest_path, policy_name)
+    # # 遍历 new_policy 下所有 policy_*
+    # for policy_name in os.listdir(new_policy_src_path):
+    #     src_path = os.path.join(new_policy_src_path, policy_name)
+    #     dst_path = os.path.join(policies_dest_path, policy_name)
 
-        # 确保是文件夹
-        if os.path.isdir(src_path):
-            # 移动整个 policy 文件夹
-            # shutil.move(src_path, dst_path)
-            shutil.copytree(src_path, dst_path)
-            print(f"Copied {src_path} -> {dst_path}")
+    #     # 确保是文件夹
+    #     if os.path.isdir(src_path):
+    #         # 移动整个 policy 文件夹
+    #         # shutil.move(src_path, dst_path)
+    #         shutil.copytree(src_path, dst_path)
+    #         print(f"Copied {src_path} -> {dst_path}")
 
-    print(f"All policies Copied to {policies_dest_path}")
+    # print(f"All policies Copied to {policies_dest_path}")
     return policies_dest_path
 import os
 import json
@@ -88,11 +87,12 @@ def generate_agent_params(policies_path: str):
 
             # 创建 Policy 实例
             policy_instance = policy_module.Policy(input_dim, action_dim, lr, Model, env=env_wrapper.env, agent_id=agent_id)
-            policy_model_pth = os.path.join(policy_path, "model.pth")
-            optimizer_pth = os.path.join(policy_path, "optimizer.pth")
+            policy_model_pth = os.path.join(policy_path, "model.pt")
+            optimizer_pth = os.path.join(policy_path, "optimizer.pt")
             # 加载模型参数
             if os.path.exists(policy_model_pth):
                 policy_instance.load(policy_model_pth, optimizer_pth)
+                print(f"Loaded model from {policy_model_pth}. Loading optimizer from {optimizer_pth}.")
             else:
                 print(f"Model file {policy_model_pth} does not exist.")
             # 将 A2CNetwork 作为 policy_instance 的属性或传入创建

@@ -133,7 +133,26 @@ def remove_all_gradients(gradients_path: str):
         print(f"All gradient files removed from {gradients_path}")
     else:
         print(f"No gradients found at {gradients_path}")
-
+def remove_all_checkpoints(checkpoint_root: str = "server/policies/checkpoints"):
+    """
+    删除所有检查点文件。
+    """
+    if os.path.exists(checkpoint_root):
+        for file in os.listdir(checkpoint_root):
+            file_path = os.path.join(checkpoint_root, file)
+            shutil.rmtree(file_path)
+            # if os.path.isfile(file_path):
+            #     os.remove(file_path)
+            #     print(f"Removed checkpoint file {file_path}")
+def remove_evaluation_files(eval_json: str = "server/eval_results.json"):
+    """
+    删除评估结果文件。
+    """
+    if os.path.exists(eval_json):
+        os.remove(eval_json)
+        # print(f"Removed evaluation results file {eval_json}")
+    else:
+        print(f"No evaluation results found at {eval_json}")
 def reset_server_state(policies_path: str = 'server/policies', optimizer_save_dir: str = 'server/optimizers', metadata_path: str = 'server/policy_metadata.json', gradients_path: str = 'server/gradients'):
     """
     重置服务器状态，包括模型和优化器参数。
@@ -149,6 +168,24 @@ def reset_server_state(policies_path: str = 'server/policies', optimizer_save_di
     remove_all_gradients(gradients_path)
     print(f"Server state reset. All gradients removed from {gradients_path}")
     
+    checkpoint_root = os.path.join(policies_path, "checkpoints")
+    remove_all_checkpoints(checkpoint_root)
+    print(f"Server state reset. All checkpoints removed from {checkpoint_root}")
+
+    remove_evaluation_files()
+    
+
+    
+import shutil
+from datetime import datetime
+
+def save_policy_checkpoint(policy_id: str, policy_dir: str, steps: int, checkpoint_root: str = "server/policies/checkpoints"):
+    checkpoint_path = os.path.join(checkpoint_root, f"{policy_id}_{steps}")
+    os.makedirs(checkpoint_root, exist_ok=True)
+    shutil.copytree(policy_dir, checkpoint_path)
+    print(f"[Checkpoint] Saved checkpoint for {policy_id} at step {steps} to {checkpoint_path}")
+
+
 # def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str, optimizer_dir: str, remove_after_applied: bool = True):
 #     """
 #     根据 policy_id 找到对应的 policy 目录，加载模型和 optimizer，读取梯度，更新模型参数。

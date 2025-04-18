@@ -43,6 +43,21 @@ def setup_temp_policies(thread_id: int, path_prefix: str = ''):
 
     # print(f"All policies Copied to {policies_dest_path}")
     return policies_dest_path
+def remove_temp_policies(thread_id: int, path_prefix: str = ''):
+    """
+    删除 temp_files/thread_{i}/policies 目录，
+    
+    参数:
+        thread_id (int): 当前线程编号，例如 1 表示 thread_1
+    """
+    # 定义目标路径
+    temp_thread_path = os.path.join(path_prefix ,"temp_files", f"thread_{thread_id}")
+
+    if os.path.exists(temp_thread_path):
+        print(f"Removing existing temp_files/thread_{thread_id} directory")
+        shutil.rmtree(temp_thread_path)
+    else:
+        print(f"temp_files/thread_{thread_id} directory does not exist")
 import os
 import json
 import importlib.util

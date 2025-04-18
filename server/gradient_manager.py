@@ -8,6 +8,8 @@ import json
 import importlib.util
 from typing import Dict
 
+from utils import save_policy_checkpoint
+
 # === Lock pool for per-policy gradient access ===
 _policy_locks: Dict[str, threading.Lock] = {}
 _policy_locks_lock = threading.Lock()
@@ -20,12 +22,21 @@ def get_policy_lock(policy_id: str) -> threading.Lock:
         if policy_id not in _policy_locks:
             _policy_locks[policy_id] = threading.Lock()
         return _policy_locks[policy_id]
+    
+
+_gradient_locks: Dict[str, threading.Lock] = {}
+_gradient_locks_lock = threading.Lock()
+def get_gradient_lock(policy_id: str) -> threading.Lock:
+    with _gradient_locks_lock:
+        if policy_id not in _gradient_locks:
+            _gradient_locks[policy_id] = threading.Lock()
+        return _gradient_locks[policy_id]
 
 # === Gradient Update Queue ===
 gradient_update_queue = queue.Queue()
 
 def enqueue_gradient_update(policy_id: str):
-    # print(f"[Debug] Queue_id for enqueue_gradient_update: ", id(gradient_update_queue))
+    print(f"[Debug] Queue_id for enqueue_gradient_update: ", id(gradient_update_queue))
     print(f"[GradientManager] Enqueueing {policy_id}")
     gradient_update_queue.put(policy_id)
     print(f"[GradientManager] Queue size is now: {gradient_update_queue.qsize()}")
@@ -94,13 +105,18 @@ def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str
 
         with open(policy_metadata_path, 'w') as f:
             json.dump(policy_metadata, f, indent=4)
+        
+        # Save a checkpoint of the policy
+        if train_steps % 10 == 0:  # Save every 10 steps
+            checkpoint_path = os.path.join(policies_dir, f"checkpoints")
+            save_policy_checkpoint(policy_id, policy_path, train_steps, checkpoint_root=checkpoint_path)
 
 
 
 # === Worker Thread ===
 def gradient_worker(gradients_path: str, policies_dir: str, optimizer_dir: str):
     print("[GradientManager] Worker is running and listening for gradient updates...")
-    # print("[Debug] Queue_id for gradient_worker: ", id(gradient_update_queue))
+    print("[Debug] Queue_id for gradient_worker: ", id(gradient_update_queue))
 
     while True:
         policy_id = gradient_update_queue.get()
@@ -113,7 +129,8 @@ def gradient_worker(gradients_path: str, policies_dir: str, optimizer_dir: str):
         try:
             policy_lock = get_policy_lock(policy_id)
             print(f"[GradientManager] Waiting for lock on policy {policy_id}")
-            with policy_lock:
+            gradient_lock = get_gradient_lock(policy_id)
+            with policy_lock , gradient_lock:
                 print(f"[GradientManager] Applying gradient update for {policy_id}")
                 apply_gradient_update(policy_id, gradients_path, policies_dir, optimizer_dir)
                 print(f"[GradientManager] Gradient update applied for {policy_id}")
@@ -131,3 +148,21 @@ def start_gradient_worker(gradients_path: str, policies_dir: str, optimizer_dir:
     thread.start()
     print("[GradientManager] Gradient worker started.")
     return thread
+
+def merge_gradients(existing_path: str, new_path: str):
+    if not os.path.exists(existing_path):
+        os.rename(new_path, existing_path)
+        return
+
+    existing = torch.load(existing_path)
+    new = torch.load(new_path)
+
+    if existing.keys() != new.keys():
+        raise ValueError("Gradient files have mismatched keys")
+
+    merged = {}
+    for k in existing:
+        merged[k] = existing[k] + new[k]
+
+    torch.save(merged, existing_path)
+    os.remove(new_path)

@@ -207,6 +207,45 @@ class Client:
                 received += len(chunk)
         unzip_folder(zip_path, save_to)
 
+    def request_random_policy(self, agent_id: str, save_to_base: str):
+        msg = f"REQUEST_RANDOM_POLICY{SEPARATOR}{agent_id}"
+        self.client_socket.sendall(msg.encode())
+
+        # Receive policy_id first
+        policy_id_bytes = b""
+        while not policy_id_bytes.endswith(SEPARATOR.encode()):
+            policy_id_bytes += self.client_socket.recv(1)
+        policy_id = policy_id_bytes.decode().strip(SEPARATOR)
+
+        # Receive size line
+        size_line = b""
+        while not size_line.endswith(b"\n"):
+            size_line += self.client_socket.recv(1)
+
+        try:
+            total_size = int(size_line.decode().strip())
+        except ValueError:
+            print(f"[Client] Unexpected response from server: {size_line.decode().strip()}")
+            return
+
+        # Define save path using received policy_id
+        zip_path = f"{self.path}/tmp/{policy_id}.zip"
+        save_to = os.path.join(save_to_base, policy_id)
+        os.makedirs(os.path.dirname(zip_path), exist_ok=True)
+
+        with open(zip_path, 'wb') as f:
+            received = 0
+            while received < total_size:
+                chunk = self.client_socket.recv(min(BUFFER_SIZE, total_size - received))
+                if not chunk:
+                    break
+                f.write(chunk)
+                received += len(chunk)
+
+        unzip_folder(zip_path, save_to)
+        print(f"[Client] Random policy {policy_id} saved to {save_to}")
+        return policy_id
+
     def send_gradient(self, gradient_file_path: str, policy_id: str):
         file_size = os.path.getsize(gradient_file_path)
         msg = f"SEND_GRADIENT{SEPARATOR}{policy_id}{SEPARATOR}{file_size}"

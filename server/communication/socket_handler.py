@@ -13,7 +13,7 @@ from typing import Dict
 
 BUFFER_SIZE = 4096
 SEPARATOR = "<SEPARATOR>"
-
+import random
 # ========== UTILS ==========
 def zip_folder(folder_path, zip_path):
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
@@ -35,6 +35,21 @@ def read_agent_config(policy_dir):
             return json.load(f)
     return {}
 
+def initialize_policy_metadata(policies_root='server/policies', metadata_path='server/policy_metadata.json'):
+    metadata = {}
+    if os.path.exists(policies_root):
+        for policy_name in os.listdir(policies_root):
+            policy_dir = os.path.join(policies_root, policy_name)
+            if os.path.isdir(policy_dir):
+                config = read_agent_config(policy_dir)
+                if config:
+                    metadata[policy_name] = {
+                        **config,
+                        "train_steps": 0
+                    }
+    with open(metadata_path, 'w') as f:
+        json.dump(metadata, f, indent=2)
+    print(f"[INIT] Policy metadata initialized with {len(metadata)} policies.")
 
 # ========== SERVER SIDE ==========
 class Server:
@@ -50,18 +65,21 @@ class Server:
         self.load_metadata()
 
     def load_metadata(self):
+
         if os.path.exists(self.clients_info_path):
             with open(self.clients_info_path, 'r') as f:
                 self.clients = json.load(f)
-        if os.path.exists(self.policies_info_path):
-            with open(self.policies_info_path, 'r') as f:
-                self.policies = json.load(f)
+
+        with gradient_manager.policy_metadata_lock:
+            if os.path.exists(self.policies_info_path):
+                with open(self.policies_info_path, 'r') as f:
+                    self.policies = json.load(f)
 
     def save_metadata(self):
         with open(self.clients_info_path, 'w') as f:
             json.dump(self.clients, f, indent=2)
-        with open(self.policies_info_path, 'w') as f:
-            json.dump(self.policies, f, indent=2)
+        # with open(self.policies_info_path, 'w') as f:
+        #     json.dump(self.policies, f, indent=2)
 
     def recv_exact_file(self, conn, target_path, file_size):
         with open(target_path, 'wb') as f:
@@ -115,20 +133,76 @@ class Server:
                     with open(zip_path, 'rb') as f:
                         while chunk := f.read(BUFFER_SIZE):
                             conn.sendall(chunk)
+                
+                elif msg.startswith("REQUEST_RANDOM_POLICY"):
+                    _, agent_id = msg.split(SEPARATOR)
+                    print(f"[SERVER] Client requested random policy for agent_id: {agent_id}")
+
+                    # Load policy metadata
+                    with gradient_manager.policy_metadata_lock:
+                        with open(self.policies_info_path, 'r') as f:
+                            all_policies = json.load(f)
+
+                    # Filter by agent_id
+                    matched_policies = [pid for pid, info in all_policies.items() if info.get("agent_id") == agent_id]
+
+                    if not matched_policies:
+                        error_msg = f"ERROR{SEPARATOR}No policy found for agent_id {agent_id}"
+                        conn.sendall(error_msg.encode())
+                        print(f"[SERVER] {error_msg}")
+                        return
+
+                    # Randomly select a matching policy
+                    selected_policy_id = random.choice(matched_policies)
+                    print(f"[SERVER] Selected policy: {selected_policy_id}")
+
+                    folder_path = f"server/policies/{selected_policy_id}"
+                    zip_path = f"{self.tmp_path}/{selected_policy_id}.zip"
+                    os.makedirs(self.tmp_path, exist_ok=True)
+
+                    policy_lock = gradient_manager.get_policy_lock(selected_policy_id)
+                    with policy_lock:
+                    # Zip the folder
+                        zip_folder(folder_path, zip_path)
+                    file_size = os.path.getsize(zip_path)
+
+                    # === Send protocol ===
+                    # 1. Send policy_id first (terminated with SEPARATOR)
+                    conn.sendall(f"{selected_policy_id}{SEPARATOR}".encode())
+
+                    # 2. Send zip file size
+                    conn.sendall(f"{file_size}\n".encode())
+
+                    # 3. Send zip file content
+                    with open(zip_path, 'rb') as f:
+                        while chunk := f.read(BUFFER_SIZE):
+                            conn.sendall(chunk)
+
+                    print(f"[SERVER] Sent random policy {selected_policy_id} to client (size: {file_size} bytes)")
 
                 elif msg.startswith("SEND_GRADIENT"):
                     _, policy_id, file_size_str = msg.split(SEPARATOR)
                     file_size = int(file_size_str)
-                    file_path = f"server/gradients/{policy_id}.pt"
-                    os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-                    policy_lock = gradient_manager.get_policy_lock(policy_id)
-                    with policy_lock:
-                        self.recv_exact_file(conn, file_path, file_size)
+                    os.makedirs("server/gradients/incoming", exist_ok=True)
+                    temp_path = f"server/gradients/incoming/{policy_id}.pt"
+                    final_path = f"server/gradients/{policy_id}.pt"
+
+                    gradient_lock = gradient_manager.get_gradient_lock(policy_id)
+                    with gradient_lock:
+                        self.recv_exact_file(conn, temp_path, file_size)
+
+                        if os.path.exists(final_path):
+                            # print(f"[SERVER] Merging gradient for {policy_id}")
+                            gradient_manager.merge_gradients(final_path, temp_path)
+                        else:
+                            os.rename(temp_path, final_path)
+                            # print(f"[SERVER] Stored initial gradient for {policy_id}")
+
 
                     conn.sendall(f"RECEIVED_GRADIENT{SEPARATOR}{policy_id}".encode())
                     gradient_manager.enqueue_gradient_update(policy_id)
-                    print(f"[SERVER] Gradient for {policy_id} received and enqueued for update.")
+                    print(f"[SERVER] Gradient for {policy_id} enqueued for update.")
 
                 elif msg.startswith("EXIT"):
                     break

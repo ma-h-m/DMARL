@@ -1,0 +1,23 @@
+[
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 12,
+    "avg_reward": -27.023027266496943,
+    "count": 50
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 12,
+    "avg_reward": 7.116702738267876,
+    "count": 50
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 11,
+    "avg_reward": 7.116702738267876,
+    "count": 50
+  }
+]

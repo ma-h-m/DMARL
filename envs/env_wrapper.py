@@ -20,12 +20,12 @@ from collections import defaultdict
     # env.close()
 
 class SimpleAdversaryWrapper:
-    def __init__(self, **kwargs):
+    def __init__(self, render_mode='ansi'):
         """
         Initializes the SimpleAdversaryWrapper with the environment.
         """
-        self.env = simple_adversary_v3.parallel_env()  # 初始化 simple_adversary 环境
-        self.env.reset()  # Reset the environment to its initial state
+        self.env = simple_adversary_v3.parallel_env(render_mode = render_mode)  # 初始化 simple_adversary 环境
+        # self.env.reset()  # Reset the environment to its initial state
 
     def reset(self):
         """

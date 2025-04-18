@@ -16,7 +16,7 @@
         "action_shape": 5,
         "description": "A2C",
         "created_at": "2025-03-10T08:30:00",
-        "train_steps": 1
+        "train_steps": 12
     },
     "policy_0": {
         "agent_id": "adversary_0",
@@ -35,7 +35,7 @@
         "action_shape": 5,
         "description": "A2C",
         "created_at": "2025-03-10T08:30:00",
-        "train_steps": 1
+        "train_steps": 12
     },
     "policy_2": {
         "agent_id": "agent_1",
@@ -54,6 +54,6 @@
         "observation_shape": 10,
         "action_shape": 5,
         "created_at": "2025-03-10T08:30:00",
-        "train_steps": 1
+        "train_steps": 11
     }
 }

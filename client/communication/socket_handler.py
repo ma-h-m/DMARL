@@ -164,6 +164,8 @@ class Client:
         self.path = policy_path
 
     def connect(self):
+        if self.client_socket is None or self.client_socket.fileno() == -1:
+            self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client_socket.connect((self.server_host, self.server_port))
         self.register()
 
@@ -261,3 +263,4 @@ class Client:
     def close(self):
         self.client_socket.sendall("EXIT".encode())
         self.client_socket.close()
+        self.client_socket = None

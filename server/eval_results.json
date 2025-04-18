@@ -2,22 +2,253 @@
   {
     "agent_id": "adversary_0",
     "policy_id": "policy_0",
-    "train_steps": 12,
-    "avg_reward": -27.023027266496943,
-    "count": 50
+    "train_steps": 0,
+    "avg_reward": -26.37280104140037,
+    "count": 5
   },
   {
     "agent_id": "agent_0",
     "policy_id": "policy_1",
-    "train_steps": 12,
-    "avg_reward": 7.116702738267876,
-    "count": 50
+    "train_steps": 0,
+    "avg_reward": 6.036695652147681,
+    "count": 5
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 0,
+    "avg_reward": 6.036695652147681,
+    "count": 5
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 1,
+    "avg_reward": -23.12763670472766,
+    "count": 2
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 1,
+    "avg_reward": 2.9370592513847953,
+    "count": 2
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 1,
+    "avg_reward": 2.9370592513847953,
+    "count": 2
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 2,
+    "avg_reward": -22.86482556923368,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 2,
+    "avg_reward": 2.2623339120177977,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 2,
+    "avg_reward": 2.2623339120177977,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 5,
+    "avg_reward": -22.64141385804265,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 5,
+    "avg_reward": 4.011790570238358,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 5,
+    "avg_reward": 4.011790570238358,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 7,
+    "avg_reward": -36.609201161958154,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 7,
+    "avg_reward": 18.04029404631748,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 7,
+    "avg_reward": 18.04029404631748,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 9,
+    "avg_reward": -24.2498912631165,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 9,
+    "avg_reward": 4.457966382813842,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 9,
+    "avg_reward": 4.457966382813842,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 11,
+    "avg_reward": -33.98524764883912,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 11,
+    "avg_reward": 12.674733052237894,
+    "count": 1
   },
   {
     "agent_id": "agent_1",
     "policy_id": "policy_2",
     "train_steps": 11,
-    "avg_reward": 7.116702738267876,
-    "count": 50
+    "avg_reward": 12.674733052237894,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 14,
+    "avg_reward": -27.235844531612138,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 14,
+    "avg_reward": 9.433243437319435,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 14,
+    "avg_reward": 9.433243437319435,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 16,
+    "avg_reward": -30.470848206444924,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 16,
+    "avg_reward": 7.0202056028942765,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 16,
+    "avg_reward": 7.0202056028942765,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 18,
+    "avg_reward": -28.478913683019147,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 18,
+    "avg_reward": 8.695191363854361,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 18,
+    "avg_reward": 8.695191363854361,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 21,
+    "avg_reward": -30.221101953170482,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 21,
+    "avg_reward": 10.907485566550571,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 21,
+    "avg_reward": 10.907485566550571,
+    "count": 1
+  },
+  {
+    "agent_id": "adversary_0",
+    "policy_id": "policy_0",
+    "train_steps": 23,
+    "avg_reward": -30.381383602390024,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 23,
+    "avg_reward": 15.863201533512026,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 23,
+    "avg_reward": 15.863201533512026,
+    "count": 1
   }
 ]

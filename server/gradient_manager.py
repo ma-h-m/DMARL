@@ -42,7 +42,7 @@ def enqueue_gradient_update(policy_id: str):
     print(f"[GradientManager] Queue size is now: {gradient_update_queue.qsize()}")
 
 # === Main Gradient Update Logic ===
-def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str, optimizer_dir: str, remove_after_applied: bool = True):
+def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str, optimizer_dir: str, remove_after_applied: bool = True, gradient_clip : float = 1.0):
     policy_path = os.path.join(policies_dir, policy_id)
     config_path = os.path.join(policy_path, "agent.config")
     model_file = os.path.join(policy_path, "model.py")
@@ -79,9 +79,11 @@ def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str
         if name in gradients and gradients[name] is not None:
             param.grad = gradients[name]
 
+    torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=gradient_clip)
     optimizer.step()
     optimizer.zero_grad()
     torch.save(optimizer.state_dict(), optimizer_file)
+    torch.save(model.state_dict(), os.path.join(policy_path, "model.pt"))
     print(f"[GradientManager] Updated parameters for {policy_id}")
 
     if remove_after_applied:

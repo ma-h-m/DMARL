@@ -9,6 +9,28 @@ import threading
 from envs.env_wrapper import SimpleAdversaryWrapper as EnvWrapper
 from server.gradient_manager import get_policy_lock, policy_metadata_lock
 
+from torch.utils.tensorboard import SummaryWriter
+
+import shutil
+
+def write_tensorboard_logs(eval_records, log_dir="server/tb_logs"):
+    # 清空旧日志目录，确保每次都是最新的点
+    if os.path.exists(log_dir):
+        shutil.rmtree(log_dir)
+
+    writer = SummaryWriter(log_dir=log_dir)
+    for record in eval_records:
+        agent_id = record["agent_id"]
+        policy_id = record["policy_id"]
+        train_steps = record["train_steps"]
+        avg_reward = record["avg_reward"]
+
+        tag = f"{agent_id}/{policy_id}"
+        writer.add_scalar(tag, avg_reward, global_step=train_steps)
+
+    writer.close()
+    print(f"[TENSORBOARD] Logs refreshed at {log_dir}")
+
 def load_policy(policy_path, agent_id, policy_id, env_wrapper):
     lock = get_policy_lock(policy_id)
     with lock:
@@ -160,6 +182,7 @@ def evaluate_from_metadata(metadata_path='server/policy_metadata.json', num_epis
         json.dump(eval_records, f, indent=2)
 
     print(f"[EVAL] Evaluation results updated and saved to {save_path}")
+    write_tensorboard_logs(eval_records)
     return eval_records
 
 def start_evaluation_loop(env_wrapper, interval_seconds=60, num_episodes=10):

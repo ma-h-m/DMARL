@@ -1,5 +1,6 @@
 import gym
-from pettingzoo.mpe import simple_adversary_v3  # 引入 simple_adversary 环境
+from pettingzoo.mpe import simple_reference_v3 as simple_adversary_v3  
+# from pettingzoo.mpe import simple_adversary_v3  # 引入 simple_adversary 环境
 from collections import defaultdict
 
 ## Adversarial environment

@@ -9,14 +9,6 @@
       "trainable": true
     },
     {
-      "agent_id": "adversary_0",
-      "policy_id": "policy_0",
-      "idx": 0,
-      "description": "A2C",
-      "path": "client/temp_files/thread_1/policies/policy_0",
-      "trainable": true
-    },
-    {
       "agent_id": "agent_1",
       "policy_id": "policy_2",
       "idx": 2,

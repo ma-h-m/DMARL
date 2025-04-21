@@ -8,7 +8,7 @@ import server.gradient_manager as gradient_manager
 from envs.env_wrapper import SimpleAdversaryWrapper as EnvWrapper
 from evaluater import start_evaluation_loop, evaluate_from_metadata
 import time
-
+# from server.reset import reset_server_state
 # reset_server_state('server/policies', 'server/optimizers','server/policy_metadata.json' , 'server/gradients')
 # create_optimizers_for_policies('server/policies', 'server/optimizers')
 env = EnvWrapper()
@@ -18,7 +18,7 @@ env.reset()
 # time.sleep(20)
 
 # time.sleep(20)
-
+# reset_server_state('server/policies', 'server/optimizers','server/policy_metadata.json' , 'server/gradients')
 server = Server('127.0.0.1', 9999)
 
 start_evaluation_loop(env, 10, 10)

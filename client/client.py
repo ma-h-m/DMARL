@@ -40,14 +40,14 @@ if __name__ == "__main__":
             os.makedirs(os.path.dirname(gradient_file_path), exist_ok=True)
             torch.save(gradient, gradient_file_path)
             client.send_gradient(gradient_file_path, policy_id)
-            # os.remove(gradient_file_path)
+            os.remove(gradient_file_path)
 
         client.close()
-        # remove_temp_policies(thread_id, "client")
+        remove_temp_policies(thread_id, "client")
 
         training_steps_counter += 1
         print(f"Training steps: {training_steps_counter}")
-        break
+        # break
     # gradients_path = save_all_gradients(gradients, save_dir=thread_path)
     
     # for agent_info in agent_info_list:

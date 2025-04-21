@@ -48,7 +48,8 @@ def compare_policies(path1, path2):
         for name, diff in differences.items():
             print(f"  - {name}: {diff if isinstance(diff, float) else diff}")
 
-compare_policies("debug/policy_0_copy", "debug/policy_0")
+# compare_policies("debug/policy_0_copy", "debug/policy_0")
+compare_policies("debug/policy_1_20", "debug/policy_1_80")
 
 # if __name__ == "__main__":
 #     import argparse

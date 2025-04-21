@@ -171,7 +171,9 @@ def reset_server_state(policies_path: str = 'server/policies', optimizer_save_di
     checkpoint_root = os.path.join(policies_path, "checkpoints")
     remove_all_checkpoints(checkpoint_root)
     print(f"Server state reset. All checkpoints removed from {checkpoint_root}")
-    shutil.rmtree("server/tb_logs")
+    if os.path.exists("server/tb_logs"):
+        print(f"Removing existing tb_logs directory")
+        shutil.rmtree("server/tb_logs")
 
     remove_evaluation_files()
     

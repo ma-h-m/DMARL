@@ -29,7 +29,7 @@ if __name__ == "__main__":
         agent_info_list = generate_agent_params(policies_path)
 
         # 本地训练
-        gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size= = 4096)
+        gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=4096)
 
         # 发送所有梯度
         thread_path = os.path.dirname(policies_path)

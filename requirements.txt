@@ -1,0 +1,5 @@
+gym==0.26.2
+numpy==2.2.5
+pettingzoo==1.24.3
+tianshou==1.1.0
+torch==2.6.0

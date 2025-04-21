@@ -1,0 +1,1 @@
+tensorboard --logdir=server/tb_logs --port=6006

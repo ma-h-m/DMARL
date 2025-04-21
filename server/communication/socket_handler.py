@@ -179,6 +179,8 @@ class Server:
                             conn.sendall(chunk)
 
                     print(f"[SERVER] Sent random policy {selected_policy_id} to client (size: {file_size} bytes)")
+                    # Clean up
+                    os.remove(zip_path)
 
                 elif msg.startswith("SEND_GRADIENT"):
                     _, policy_id, file_size_str = msg.split(SEPARATOR)

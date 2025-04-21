@@ -109,7 +109,7 @@ def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str
             json.dump(policy_metadata, f, indent=4)
         
         # Save a checkpoint of the policy
-        if train_steps % 10 == 0:  # Save every 10 steps
+        if train_steps % 100 == 0:  # Save every 10 steps
             checkpoint_path = os.path.join(policies_dir, f"checkpoints")
             save_policy_checkpoint(policy_id, policy_path, train_steps, checkpoint_root=checkpoint_path)
 

@@ -181,14 +181,14 @@ def sample_trajectory(agent_info_list, batch_size=4096):
     return trajectories
 
 
-def train(epochs = 10, agent_info_list = None):
+def train(epochs = 10, agent_info_list = None, batch_size = 4096):
 
 
     all_gradients = {}
     
     avg_reward = 0
     for i in range(epochs):
-        traj = sample_trajectory(agent_info_list, batch_size=4096)
+        traj = sample_trajectory(agent_info_list, batch_size = batch_size)
         # print (i)
         print(f"\nEpoch {i + 1}")
         for agent_info in agent_info_list:

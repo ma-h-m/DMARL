@@ -251,14 +251,27 @@ class Client:
     def send_gradient(self, gradient_file_path: str, policy_id: str):
         file_size = os.path.getsize(gradient_file_path)
         msg = f"SEND_GRADIENT{SEPARATOR}{policy_id}{SEPARATOR}{file_size}"
-        self.client_socket.sendall(msg.encode())
 
-        with open(gradient_file_path, 'rb') as f:
-            while chunk := f.read(BUFFER_SIZE):
-                self.client_socket.sendall(chunk)
+        try:
+            self.client_socket.sendall(msg.encode())
 
-        response = self.client_socket.recv(BUFFER_SIZE).decode()
-        print(f"[CLIENT] Server response: {response}")
+            with open(gradient_file_path, 'rb') as f:
+                while chunk := f.read(BUFFER_SIZE):
+                    self.client_socket.sendall(chunk)
+
+            response = self.client_socket.recv(BUFFER_SIZE).decode()
+            print(f"[CLIENT] Server response: {response}")
+
+        except (BrokenPipeError, OSError) as e:
+            print(f"[CLIENT ERROR] Broken pipe while sending gradient for {policy_id}: {e}")
+            self.client_socket.close()
+            self.client_socket = None
+            # Optional: retry once
+            try:
+                self.connect()
+                self.send_gradient(gradient_file_path, policy_id)
+            except Exception as retry_e:
+                print(f"[CLIENT ERROR] Retry failed: {retry_e}")
 
     def close(self):
         self.client_socket.sendall("EXIT".encode())

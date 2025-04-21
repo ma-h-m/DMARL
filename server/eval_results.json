@@ -1,0 +1,506 @@
+[
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 0,
+    "avg_reward": -31.3206597525974,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 0,
+    "avg_reward": -27.836946713229274,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 13,
+    "avg_reward": -24.842602171126195,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 13,
+    "avg_reward": -26.653753445023018,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 28,
+    "avg_reward": -22.581458415231584,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 28,
+    "avg_reward": -22.295870814805717,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 43,
+    "avg_reward": -24.931069901192657,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 43,
+    "avg_reward": -23.538736665350974,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 58,
+    "avg_reward": -31.93525512038648,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 58,
+    "avg_reward": -33.94703736493717,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 73,
+    "avg_reward": -28.340494207089172,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 73,
+    "avg_reward": -26.470591165184487,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 88,
+    "avg_reward": -21.068180030937093,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 88,
+    "avg_reward": -18.77590416263712,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 92,
+    "avg_reward": -26.998020332840913,
+    "count": 5
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 92,
+    "avg_reward": -27.43496872952531,
+    "count": 5
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 105,
+    "avg_reward": -28.53628979992077,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 105,
+    "avg_reward": -23.750388060784417,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 120,
+    "avg_reward": -31.528449075369103,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 120,
+    "avg_reward": -26.478734077919775,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 135,
+    "avg_reward": -27.337158600662757,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 135,
+    "avg_reward": -25.30567992593992,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 150,
+    "avg_reward": -31.977821877542773,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 150,
+    "avg_reward": -30.052472461720043,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 165,
+    "avg_reward": -24.475658581583183,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 165,
+    "avg_reward": -24.681527769421383,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 179,
+    "avg_reward": -28.964187713253118,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 179,
+    "avg_reward": -27.81222791228435,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 195,
+    "avg_reward": -25.123387573537027,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 195,
+    "avg_reward": -26.84381314889701,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 210,
+    "avg_reward": -28.23538902086505,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 210,
+    "avg_reward": -26.88662377645212,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 224,
+    "avg_reward": -29.76422127399595,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 224,
+    "avg_reward": -29.130096225155597,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 239,
+    "avg_reward": -24.10264502928441,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 239,
+    "avg_reward": -26.137421670799846,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 254,
+    "avg_reward": -27.016706150096848,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 254,
+    "avg_reward": -26.82117701077423,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 269,
+    "avg_reward": -23.735857194344216,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 269,
+    "avg_reward": -26.771763900183082,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 284,
+    "avg_reward": -26.56403897531006,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 284,
+    "avg_reward": -28.17587268234235,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 299,
+    "avg_reward": -24.79781100235296,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 299,
+    "avg_reward": -28.822335710146312,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 314,
+    "avg_reward": -25.06619486029085,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 314,
+    "avg_reward": -24.55720739998432,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 328,
+    "avg_reward": -29.396073291235847,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 328,
+    "avg_reward": -24.146984145662888,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 342,
+    "avg_reward": -24.013365025786975,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 342,
+    "avg_reward": -26.47168340923674,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 357,
+    "avg_reward": -28.159168799136314,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 357,
+    "avg_reward": -27.72233508859257,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 371,
+    "avg_reward": -24.623978302697907,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 371,
+    "avg_reward": -28.239094236966253,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 386,
+    "avg_reward": -21.954941224806994,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 386,
+    "avg_reward": -25.50578368529489,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 401,
+    "avg_reward": -24.324684393459965,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 401,
+    "avg_reward": -19.28946665513023,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 416,
+    "avg_reward": -19.858809980200267,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 416,
+    "avg_reward": -20.76150665878468,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 431,
+    "avg_reward": -24.58502941920636,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 431,
+    "avg_reward": -23.763264355964566,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 446,
+    "avg_reward": -26.532614374840684,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 446,
+    "avg_reward": -29.750415045000757,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 461,
+    "avg_reward": -28.529708613715087,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 461,
+    "avg_reward": -27.312226879544273,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 476,
+    "avg_reward": -25.8752867506087,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 476,
+    "avg_reward": -26.471483002026883,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 492,
+    "avg_reward": -25.72507129718653,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 492,
+    "avg_reward": -26.975192460745497,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_0",
+    "policy_id": "policy_1",
+    "train_steps": 507,
+    "avg_reward": -28.40018831246174,
+    "count": 1
+  },
+  {
+    "agent_id": "agent_1",
+    "policy_id": "policy_2",
+    "train_steps": 507,
+    "avg_reward": -27.955846353591177,
+    "count": 1
+  }
+]

@@ -6,7 +6,7 @@ import torch
 from tianshou.data import Batch
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from envs.env_wrapper import SimpleAdversaryWrapper as EnvWrapper
-def setup_temp_policies(thread_id: int, path_prefix: str = ''):
+def setup_temp_policies(thread_id: int, path_prefix: str = '', remove = True):
     """
     创建 temp_files/thread_{i}/policies 目录，
     
@@ -16,7 +16,7 @@ def setup_temp_policies(thread_id: int, path_prefix: str = ''):
     # 定义目标路径
     temp_thread_path = os.path.join(path_prefix ,"temp_files", f"thread_{thread_id}")
 
-    if os.path.exists(temp_thread_path):
+    if os.path.exists(temp_thread_path) and remove == True:
         print(f"Removing existing temp_files/thread_{thread_id} directory")
         shutil.rmtree(temp_thread_path)
     os.makedirs(temp_thread_path, exist_ok=True)

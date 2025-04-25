@@ -218,6 +218,7 @@ def train(epochs = 10, agent_info_list = None, batch_size = 4096):
             agent_id = agent_info["agent_id"]
             rewards = [step["rew"] for step in agent_data]
             avg_reward = sum(rewards) / len(rewards)
+            # print(rewards)
             print(f"Agent {agent_id} trained with average reward: {avg_reward:.4f}")
     return all_gradients
     # print(traj)

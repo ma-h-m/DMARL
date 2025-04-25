@@ -1,4 +1,4 @@
-from train import *
+from train_debug import *
 from utils import *
 import sys
 import os
@@ -29,18 +29,21 @@ if __name__ == "__main__":
         agent_info_list = generate_agent_params(policies_path)
 
         # 本地训练
-        gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=4096)
+        for i in range(1000):
+            gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=2)
+            # agent = agent_info_list[0]['policy_instance']
+            # agent.optimizer.step()
 
         # 发送所有梯度
-        thread_path = os.path.dirname(policies_path)
-        for agent_info in agent_info_list:
-            policy_id = agent_info["policy_id"]
-            gradient = gradients[agent_info["agent_id"]]
-            gradient_file_path = os.path.join(thread_path, "tmp", f"gradient_{policy_id}.pt")
-            os.makedirs(os.path.dirname(gradient_file_path), exist_ok=True)
-            torch.save(gradient, gradient_file_path)
-            # client.send_gradient(gradient_file_path, policy_id)
-            os.remove(gradient_file_path)
+        # thread_path = os.path.dirname(policies_path)
+        # for agent_info in agent_info_list:
+        #     policy_id = agent_info["policy_id"]
+        #     gradient = gradients[agent_info["agent_id"]]
+        #     gradient_file_path = os.path.join(thread_path, "tmp", f"gradient_{policy_id}.pt")
+        #     os.makedirs(os.path.dirname(gradient_file_path), exist_ok=True)
+        #     torch.save(gradient, gradient_file_path)
+        #     # client.send_gradient(gradient_file_path, policy_id)
+        #     os.remove(gradient_file_path)
 
         # client.close()
         # remove_temp_policies(thread_id, "client")

@@ -11,7 +11,7 @@ if __name__ == "__main__":
     env.reset()
     agent_ids = env.get_agent_ids()
     thread_id = 1
-    client = Client("127.0.0.1", 9999, thread_id=str(thread_id), policy_path="client/temp_files/thread_1")
+    client = Client("127.0.0.1", 9998, thread_id=str(thread_id), policy_path="client/temp_files/thread_1")
 
     training_steps_counter = 0
 
@@ -29,7 +29,8 @@ if __name__ == "__main__":
         agent_info_list = generate_agent_params(policies_path)
 
         # 本地训练
-        gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=4096)
+        gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=512)
+        # print(gradients)
 
         # 发送所有梯度
         thread_path = os.path.dirname(policies_path)

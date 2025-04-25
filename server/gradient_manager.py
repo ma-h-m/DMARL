@@ -46,6 +46,7 @@ def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str
     policy_path = os.path.join(policies_dir, policy_id)
     config_path = os.path.join(policy_path, "agent.config")
     model_file = os.path.join(policy_path, "model.py")
+    model_parameter_path = os.path.join(policy_path, "model.pt")
     gradient_file = os.path.join(gradients_path, f"{policy_id}.pt")
     optimizer_file = os.path.join(optimizer_dir, f"{policy_id}_optimizer.pt")
 
@@ -66,6 +67,10 @@ def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str
     spec_model.loader.exec_module(model_module)
     Model = model_module.Model
     model = Model(input_dim, action_dim)
+    if os.path.exists(model_parameter_path):
+        model.load_state_dict(torch.load(model_parameter_path))
+    else:
+        print(f"[GradientManager] Policy {policy_id} file does not exist! Creating a new one.")
 
     # Load optimizer
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
@@ -83,7 +88,7 @@ def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str
     optimizer.step()
     optimizer.zero_grad()
     torch.save(optimizer.state_dict(), optimizer_file)
-    torch.save(model.state_dict(), os.path.join(policy_path, "model.pt"))
+    torch.save(model.state_dict(), model_parameter_path)
     print(f"[GradientManager] Updated parameters for {policy_id}")
 
     if remove_after_applied:

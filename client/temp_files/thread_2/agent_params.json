@@ -1,0 +1,20 @@
+{
+  "policies": [
+    {
+      "agent_id": "agent_0",
+      "policy_id": "policy_3",
+      "idx": 1,
+      "description": "A2C",
+      "path": "client/temp_files/thread_2/policies/policy_3",
+      "trainable": true
+    },
+    {
+      "agent_id": "agent_1",
+      "policy_id": "policy_2",
+      "idx": 2,
+      "description": "A2C",
+      "path": "client/temp_files/thread_2/policies/policy_2",
+      "trainable": true
+    }
+  ]
+}

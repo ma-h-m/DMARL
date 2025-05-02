@@ -1,0 +1,171 @@
+import torch
+import torch.optim as optim
+from tianshou.policy import DQNPolicy
+from tianshou.data import Batch
+from tianshou.data import ReplayBuffer
+# from .model import Model
+from torch.distributions import Categorical
+import torch.nn.functional as F
+from torch import nn
+def dist_fn(logits: torch.Tensor) -> Categorical:
+    return Categorical(logits=logits)
+# from tianshou.data import policy_within_training_step, torch_train_mode
+from tianshou.utils.torch_utils import policy_within_training_step, torch_train_mode
+from torch.utils.data import DataLoader, TensorDataset
+import numpy as np
+from tianshou.data import to_torch_as
+class Policy:
+    def __init__(self, input_dim, action_dim, lr=1e-3, Model=None, env = None, agent_id = None):
+        """
+        Initialize the policy using Tianshou's A2CPolicy with a custom model.
+
+        Parameters:
+        - input_dim (int): The size of the input (state space).
+        - action_dim (int): The number of possible actions.
+        - lr (float): The learning rate for the optimizer.
+        """
+        # Initialize the combined model (Actor + Critic)
+        self.model = Model(input_dim, action_dim)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=lr)
+
+        # Initialize the Tianshou A2C Policy with our custom model
+        self.policy = DQNPolicy(
+            model = self.model,
+            optim=self.optimizer,
+            action_space=env.action_space(agent_id),  # Use the action space from the environment
+            estimation_step= 3,
+            target_update_freq=320
+        )
+        self.policy.set_eps(0.1)
+        self.action_dim = action_dim
+        self.max_grad_norm = 1
+
+    def train(self, batch_data, batch_size=512, repeat=1):
+        """
+        使用给定的batch数据训练模型，并返回上传的梯度。
+
+        参数:
+        - batch_data (dict): 包含以下内容的字典：
+            - 'obs' (torch.Tensor): 状态观测的batch。
+            - 'act' (torch.Tensor): 行为的batch。
+            - 'rew' (torch.Tensor): 奖励的batch。
+            - 'next_obs' (torch.Tensor): 下一状态观测的batch。
+            - 'done' (torch.Tensor): 完成标志的batch（指示回合是否结束）。
+
+        返回:
+        - gradients (dict): 每个参数的梯度字典。
+        """
+        buffer = ReplayBuffer(size=len(batch_data['obs']))
+        for i in range(len(batch_data['obs'])):
+            buffer.add(
+                Batch(
+                    obs=batch_data['obs'][i],
+                    act=batch_data['act'][i],
+                    rew=batch_data['rew'][i],
+                    obs_next=batch_data['obs_next'][i],
+                    terminated=batch_data['terminated'][i],
+                    truncated=batch_data['truncated'][i],
+                    info={},
+                )
+            )
+        
+        client_grads = {}
+
+        # 在训练过程中我们启用梯度计算并手动计算损失
+        with torch.set_grad_enabled(True), policy_within_training_step(self.policy), torch_train_mode(self.policy):
+            for i in range(repeat):
+                # 分批次处理数据
+                batch, indices = buffer.sample(0)
+                self.policy.updating = True
+                batch = self.policy.process_fn(batch, buffer, indices)
+                self.policy.sync_weight()
+
+                for minibatch in batch.split(batch_size, merge_last= True):
+                    # if self.policy._target and self.policy._iter % self.policy.freq == 0:
+                    #     self.policy.sync_weight()
+                    self.policy.optim.zero_grad()
+                    weight = batch.pop("weight", 1.0)
+                    q = self.policy(batch).logits
+                    q = q[np.arange(len(q)), batch.act]
+                    returns = to_torch_as(batch.returns.flatten(), q)
+                    td_error = returns - q
+
+                    if self.policy.clip_loss_grad:
+                        y = q.reshape(-1, 1)
+                        t = returns.reshape(-1, 1)
+                        loss = torch.nn.functional.huber_loss(y, t, reduction="mean")
+                    else:
+                        loss = (td_error.pow(2) * weight).mean()
+
+                    batch.weight = td_error  # prio-buffer
+                    loss.backward()
+                    # self.policy.optim.step()
+                    self.policy._iter += 1
+
+                    # 计算网络的梯度
+                    for name, param in self.policy.model.named_parameters():
+                        if param.grad is not None:
+                            full_name = name
+                            if full_name not in client_grads:
+                                client_grads[full_name] = param.grad.clone()
+                            else:
+                                client_grads[full_name] += param.grad
+
+
+                    # 禁止更新参数，防止执行优化步骤
+                self.policy.updating = False
+
+        return client_grads
+        # print(client_grads)
+        # print(buffer)
+        # self.policy.learn(batch_data, batch_size = batch_size, repeat = repeat)
+        # with policy_within_training_step(self.policy), torch_train_mode(self.policy):
+        #     self.policy.update(sample_size=0, buffer=buffer, batch_size=batch_size, repeat=repeat).pprint_asdict()
+        # for name, param in self.policy.actor.named_parameters():
+        #     if param.grad is not None:
+        #         print(f"{name}: grad norm = {param.grad.norm().item()}")
+        # # After update, get the gradients of the model parameters
+        # gradients = []
+        # for param in self.model.parameters():
+        #     if param.grad is not None:
+        #         gradients.append(param.grad.clone())  # Save the gradient for uploading
+
+        # return gradients
+
+    def predict(self, state):
+        """
+        Predict the action for a given state using the policy.
+
+        Parameters:
+        - state (torch.Tensor): The input state for which the action is to be predicted.
+
+        Returns:
+        - action (torch.Tensor): The chosen action based on the policy.
+        """
+        state = torch.tensor(state, dtype=torch.float32).unsqueeze(0)
+        # action = policy(Batch(obs=np.array([obs]))).act[0]
+        # return self.policy(Batch(obs=state)).act[0]
+        return self.policy.compute_action(obs=state)
+        # return self.policy.select(state)
+
+    def save(self, model_path, optimizer_path):
+        """
+        Save the model and optimizer state.
+
+        Parameters:
+        - model_path (str): Path to save the model weights.
+        - optimizer_path (str): Path to save the optimizer state.
+        """
+        torch.save(self.model.state_dict(), model_path)
+        torch.save(self.optimizer.state_dict(), optimizer_path)
+
+    def load(self, model_path, optimizer_path):
+        """
+        Load the model and optimizer state.
+
+        Parameters:
+        - model_path (str): Path to load the model weights.
+        - optimizer_path (str): Path to load the optimizer state.
+        """
+        self.model.load_state_dict(torch.load(model_path))
+        self.optimizer.load_state_dict(torch.load(optimizer_path))

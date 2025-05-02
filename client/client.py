@@ -5,13 +5,28 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from envs.env_wrapper import SimpleAdversaryWrapper as EnvWrapper
 from communication.socket_handler import  *
+import argparse
+
+# 添加参数解析
+parser = argparse.ArgumentParser()
+parser.add_argument('--thread_id', type=int, required=True, help='Thread ID for the client')
+parser.add_argument('--host', type=str, default='127.0.0.1', help='Server host address')
+parser.add_argument('--port', type=int, default=9999, help='Server port')
+args = parser.parse_args()
+
+thread_id = args.thread_id
+host = args.host
+port = args.port
+
+
 
 if __name__ == "__main__":
     env = EnvWrapper()
     env.reset()
     agent_ids = env.get_agent_ids()
-    thread_id = 1
-    client = Client("127.0.0.1", 9998, thread_id=str(thread_id), policy_path="client/temp_files/thread_1")
+    # thread_id = 1
+    # client = Client("127.0.0.1", 9999, thread_id=str(thread_id), policy_path="client/temp_files/thread_1")
+    client = Client(host, port, thread_id=str(thread_id), policy_path=f"client/temp_files/thread_{thread_id}")
 
     training_steps_counter = 0
 
@@ -19,31 +34,36 @@ if __name__ == "__main__":
         # ===== 每轮训练都重新连接一次 =====
         client.connect()
         client.register()
-
+        
         # 请求策略
         policies_path = setup_temp_policies(thread_id, "client")
         for agent_id in agent_ids:
             client.request_random_policy(agent_id, policies_path)
-
+        client.close()
         # 构造 agent_info
         agent_info_list = generate_agent_params(policies_path)
 
         # 本地训练
-        gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=512)
+        gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=4096)
         # print(gradients)
 
         # 发送所有梯度
         thread_path = os.path.dirname(policies_path)
         for agent_info in agent_info_list:
+            
             policy_id = agent_info["policy_id"]
+            if not agent_info["agent_id"] in gradients:
+                continue
             gradient = gradients[agent_info["agent_id"]]
             gradient_file_path = os.path.join(thread_path, "tmp", f"gradient_{policy_id}.pt")
             os.makedirs(os.path.dirname(gradient_file_path), exist_ok=True)
             torch.save(gradient, gradient_file_path)
+            client.connect()
             client.send_gradient(gradient_file_path, policy_id)
+            client.close()
             os.remove(gradient_file_path)
 
-        client.close()
+        
         remove_temp_policies(thread_id, "client")
 
         training_steps_counter += 1

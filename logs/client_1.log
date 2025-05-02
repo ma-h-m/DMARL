@@ -1,0 +1,243 @@
+/home/mhm/.local/lib/python3.12/site-packages/pygame/pkgdata.py:25: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  from pkg_resources import resource_stream, resource_exists
+/usr/lib/python3/dist-packages/pkg_resources/__init__.py:2871: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('zope')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/mhm/.local/lib/python3.12/site-packages/tianshou/policy/base.py:304: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
+  obs = np.array(obs)  # convert array-like to array (e.g. LazyFrames)
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+Removing existing temp_files/thread_1 directory
+[Client] Random policy policy_1 saved to client/temp_files/thread_1/policies/policy_1
+[Client] Random policy policy_2 saved to client/temp_files/thread_1/policies/policy_2
+Loaded model from client/temp_files/thread_1/policies/policy_2/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_2/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_1/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_1/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_1 trained with average reward: -1.8623
+Agent agent_0 trained with average reward: -1.8893
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_2
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_1
+Removing existing temp_files/thread_1 directory
+Training steps: 1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_3 saved to client/temp_files/thread_1/policies/policy_3
+[Client] Random policy policy_4 saved to client/temp_files/thread_1/policies/policy_4
+Loaded model from client/temp_files/thread_1/policies/policy_3/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_3/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_4/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_4/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_0 trained with average reward: -2.0829
+Agent agent_1 trained with average reward: -1.8803
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_3
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_4
+Removing existing temp_files/thread_1 directory
+Training steps: 2
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_3 saved to client/temp_files/thread_1/policies/policy_3
+[Client] Random policy policy_4 saved to client/temp_files/thread_1/policies/policy_4
+Loaded model from client/temp_files/thread_1/policies/policy_3/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_3/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_4/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_4/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_0 trained with average reward: -2.0602
+Agent agent_1 trained with average reward: -1.8406
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_3
+[CLIENT ERROR] Broken pipe while sending gradient for policy_4: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_4: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_4: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_4: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_4: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_4
+Removing existing temp_files/thread_1 directory
+Training steps: 3
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_3 saved to client/temp_files/thread_1/policies/policy_3
+[Client] Random policy policy_4 saved to client/temp_files/thread_1/policies/policy_4
+Loaded model from client/temp_files/thread_1/policies/policy_3/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_3/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_4/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_4/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_0 trained with average reward: -2.0728
+Agent agent_1 trained with average reward: -1.9819
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_3
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_4
+Removing existing temp_files/thread_1 directory
+Training steps: 4
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_1 saved to client/temp_files/thread_1/policies/policy_1
+[Client] Random policy policy_2 saved to client/temp_files/thread_1/policies/policy_2
+Loaded model from client/temp_files/thread_1/policies/policy_2/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_2/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_1/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_1/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_1 trained with average reward: -2.0455
+Agent agent_0 trained with average reward: -2.0124
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_2
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_1
+Removing existing temp_files/thread_1 directory
+Training steps: 5
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_1 saved to client/temp_files/thread_1/policies/policy_1
+[Client] Random policy policy_2 saved to client/temp_files/thread_1/policies/policy_2
+Loaded model from client/temp_files/thread_1/policies/policy_2/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_2/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_1/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_1/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_1 trained with average reward: -2.0231
+Agent agent_0 trained with average reward: -1.9764
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_2
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_1
+Removing existing temp_files/thread_1 directory
+Training steps: 6
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_1 saved to client/temp_files/thread_1/policies/policy_1
+[Client] Random policy policy_4 saved to client/temp_files/thread_1/policies/policy_4
+Loaded model from client/temp_files/thread_1/policies/policy_4/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_4/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_1/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_1/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_1 trained with average reward: -1.9094
+Agent agent_0 trained with average reward: -1.8157
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_4
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_1
+Removing existing temp_files/thread_1 directory
+Training steps: 7
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_1 saved to client/temp_files/thread_1/policies/policy_1
+[Client] Random policy policy_4 saved to client/temp_files/thread_1/policies/policy_4
+Loaded model from client/temp_files/thread_1/policies/policy_4/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_4/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_1/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_1/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_1 trained with average reward: -1.8163
+Agent agent_0 trained with average reward: -1.9590
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_4
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT ERROR] Broken pipe while sending gradient for policy_1: [Errno 104] Connection reset by peer
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_1
+Removing existing temp_files/thread_1 directory
+Training steps: 8
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_3 saved to client/temp_files/thread_1/policies/policy_3
+[Client] Random policy policy_4 saved to client/temp_files/thread_1/policies/policy_4
+Loaded model from client/temp_files/thread_1/policies/policy_3/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_3/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_4/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_4/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_0 trained with average reward: -1.9102
+Agent agent_1 trained with average reward: -1.8533
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_3
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_4
+Removing existing temp_files/thread_1 directory
+Training steps: 9
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_3 saved to client/temp_files/thread_1/policies/policy_3
+[Client] Random policy policy_2 saved to client/temp_files/thread_1/policies/policy_2
+Loaded model from client/temp_files/thread_1/policies/policy_3/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_3/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_2/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_2/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_0 trained with average reward: -2.0070
+Agent agent_1 trained with average reward: -1.9076
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_3
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_2
+Removing existing temp_files/thread_1 directory
+Training steps: 10
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_3 saved to client/temp_files/thread_1/policies/policy_3
+[Client] Random policy policy_4 saved to client/temp_files/thread_1/policies/policy_4
+Loaded model from client/temp_files/thread_1/policies/policy_3/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_3/optimizer.pt.
+Loaded model from client/temp_files/thread_1/policies/policy_4/model.pt. Loading optimizer from client/temp_files/thread_1/policies/policy_4/optimizer.pt.
+Saved agent_params.json to client/temp_files/thread_1/agent_params.json
+
+Epoch 1
+Agent agent_0 trained with average reward: -1.7719
+Agent agent_1 trained with average reward: -1.7826
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_3
+[CLIENT] Server response: RECEIVED_GRADIENT<SEPARATOR>policy_4
+Removing existing temp_files/thread_1 directory
+Training steps: 11
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[CLIENT] Server response: REGISTERED<SEPARATOR>127.0.0.1_1
+[Client] Random policy policy_3 saved to client/temp_files/thread_1/policies/policy_3
+[Client] Random policy policy_2 saved to client/temp_files/thread_1/policies/policy_2

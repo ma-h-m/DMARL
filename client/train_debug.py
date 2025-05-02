@@ -179,8 +179,8 @@ def sample_trajectory(agent_info_list, batch_size=4096):
             step_count += 1
 
     return trajectories
+import random
 
-from numpy import *
 def train(epochs = 10, agent_info_list = None, batch_size = 4096):
 
 
@@ -188,13 +188,14 @@ def train(epochs = 10, agent_info_list = None, batch_size = 4096):
     
     avg_reward = 0
     for i in range(epochs):
-        # traj = sample_trajectory(agent_info_list, batch_size = batch_size)
-        traj = {'agent_0': [{'obs': array([0.        , 0.        , 0.07322104, 0.17438881], dtype=float32), 'act': 4, 'rew': -0.03577277891411465, 'obs_next': array([0.        , 0.5       , 0.07322104, 0.17438881], dtype=float32), 'terminated': False, 'truncated': False, 'info': {}}, {'obs': array([0.        , 0.5       , 0.07322104, 0.17438881], dtype=float32), 'act': 1, 'rew': -0.02083389778556321, 'obs_next': array([-0.5       ,  0.375     ,  0.07322104,  0.12438881], dtype=float32), 'terminated': False, 'truncated': False, 'info': {}}]}
+        traj = sample_trajectory(agent_info_list, batch_size = batch_size)
         # print (i)
         print(f"\nEpoch {i + 1}")
         for agent_info in agent_info_list:
             if not agent_info["trainable"]:
                 continue
+            # if random.random() < 0.5:
+            #     continue
             agent_data = traj[agent_info["agent_id"]]
             batch = Batch({
                 "obs": [step["obs"] for step in agent_data],

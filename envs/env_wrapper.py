@@ -1,5 +1,5 @@
 import gym
-from pettingzoo.mpe import simple_v3 as simple_adversary_v3  
+from pettingzoo.mpe import simple_reference_v3 as simple_adversary_v3  
 # from pettingzoo.mpe import simple_adversary_v3  # 引入 simple_adversary 环境
 from collections import defaultdict
 
@@ -25,7 +25,7 @@ class SimpleAdversaryWrapper:
         """
         Initializes the SimpleAdversaryWrapper with the environment.
         """
-        self.env = simple_adversary_v3.parallel_env(render_mode = render_mode)  # 初始化 simple_adversary 环境
+        self.env = simple_adversary_v3.parallel_env(render_mode = render_mode, max_cycles=250)  # 初始化 simple_adversary 环境
         # self.env.reset()  # Reset the environment to its initial state
 
     def reset(self):

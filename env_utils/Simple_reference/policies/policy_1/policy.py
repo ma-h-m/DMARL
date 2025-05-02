@@ -7,6 +7,7 @@ from tianshou.data import ReplayBuffer
 from torch.distributions import Categorical
 import torch.nn.functional as F
 from torch import nn
+import uuid
 def dist_fn(logits: torch.Tensor) -> Categorical:
     return Categorical(logits=logits)
 # from tianshou.data import policy_within_training_step, torch_train_mode

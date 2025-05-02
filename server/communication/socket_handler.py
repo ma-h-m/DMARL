@@ -4,16 +4,27 @@ import json
 import threading
 import zipfile
 from pathlib import Path
-
+import shutil
 import server.gradient_manager as gradient_manager
 
 # from server.gradient_manager import get_policy_lock, enqueue_gradient_update
 
 from typing import Dict
-
+import time
+def remove_later(path, delay=1.0):
+    def _remove():
+        time.sleep(delay)
+        try:
+            # if 
+            shutil.rmtree(path)
+            # os.remove(path)
+        except FileNotFoundError:
+            pass
+    threading.Thread(target=_remove).start()
 BUFFER_SIZE = 4096
 SEPARATOR = "<SEPARATOR>"
 import random
+import uuid
 # ========== UTILS ==========
 def zip_folder(folder_path, zip_path):
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
@@ -91,6 +102,15 @@ class Server:
                 f.write(chunk)
                 received += len(chunk)
 
+    def recv_until_separator(conn, sep=b'<SEPARATOR>'):
+        data = b""
+        while sep not in data:
+            chunk = conn.recv(1)
+            if not chunk:
+                break
+            data += chunk
+        return data.decode()
+
     def handle_client(self, conn, addr):
         print(f"[SERVER] Connected by {addr}")
         client_id = None
@@ -98,6 +118,7 @@ class Server:
         while True:
             try:
                 msg = conn.recv(BUFFER_SIZE).decode()
+                # msg = self.recv_until_separator(conn)
                 if not msg:
                     break
 
@@ -134,6 +155,53 @@ class Server:
                         while chunk := f.read(BUFFER_SIZE):
                             conn.sendall(chunk)
                 
+                # elif msg.startswith("REQUEST_RANDOM_POLICY"):
+                #     _, agent_id = msg.split(SEPARATOR)
+                #     print(f"[SERVER] Client requested random policy for agent_id: {agent_id}")
+
+                #     # Load policy metadata
+                #     with gradient_manager.policy_metadata_lock:
+                #         with open(self.policies_info_path, 'r') as f:
+                #             all_policies = json.load(f)
+
+                #     # Filter by agent_id
+                #     matched_policies = [pid for pid, info in all_policies.items() if info.get("agent_id") == agent_id]
+
+                #     if not matched_policies:
+                #         error_msg = f"ERROR{SEPARATOR}No policy found for agent_id {agent_id}"
+                #         conn.sendall(error_msg.encode())
+                #         print(f"[SERVER] {error_msg}")
+                #         return
+
+                #     # Randomly select a matching policy
+                #     selected_policy_id = random.choice(matched_policies)
+                #     print(f"[SERVER] Selected policy: {selected_policy_id}")
+
+                #     folder_path = f"server/policies/{selected_policy_id}"
+                #     zip_path = f"{self.tmp_path}/{selected_policy_id}.zip"
+                #     os.makedirs(self.tmp_path, exist_ok=True)
+
+                #     policy_lock = gradient_manager.get_policy_lock(selected_policy_id)
+                #     with policy_lock:
+                #     # Zip the folder
+                #         zip_folder(folder_path, zip_path)
+                #         file_size = os.path.getsize(zip_path)
+
+                #         # === Send protocol ===
+                #         # 1. Send policy_id first (terminated with SEPARATOR)
+                #         conn.sendall(f"{selected_policy_id}{SEPARATOR}".encode())
+
+                #         # 2. Send zip file size
+                #         conn.sendall(f"{file_size}\n".encode())
+
+                #         # 3. Send zip file content
+                #         with open(zip_path, 'rb') as f:
+                #             while chunk := f.read(BUFFER_SIZE):
+                #                 conn.sendall(chunk)
+
+                #         print(f"[SERVER] Sent random policy {selected_policy_id} to client (size: {file_size} bytes)")
+                #         # Clean up
+                #         os.remove(zip_path)
                 elif msg.startswith("REQUEST_RANDOM_POLICY"):
                     _, agent_id = msg.split(SEPARATOR)
                     print(f"[SERVER] Client requested random policy for agent_id: {agent_id}")
@@ -157,30 +225,35 @@ class Server:
                     print(f"[SERVER] Selected policy: {selected_policy_id}")
 
                     folder_path = f"server/policies/{selected_policy_id}"
-                    zip_path = f"{self.tmp_path}/{selected_policy_id}.zip"
-                    os.makedirs(self.tmp_path, exist_ok=True)
+
+                    # ==== 创建唯一临时目录 ====
+                    unique_tmp_dir = os.path.join(self.tmp_path, str(uuid.uuid4()))
+                    os.makedirs(unique_tmp_dir, exist_ok=True)
+                    zip_path = os.path.join(unique_tmp_dir, f"{selected_policy_id}.zip")
 
                     policy_lock = gradient_manager.get_policy_lock(selected_policy_id)
                     with policy_lock:
-                    # Zip the folder
                         zip_folder(folder_path, zip_path)
-                    file_size = os.path.getsize(zip_path)
+                        file_size = os.path.getsize(zip_path)
 
-                    # === Send protocol ===
-                    # 1. Send policy_id first (terminated with SEPARATOR)
-                    conn.sendall(f"{selected_policy_id}{SEPARATOR}".encode())
+                        # === Send protocol ===
+                        conn.sendall(f"{selected_policy_id}{SEPARATOR}".encode())
+                        conn.sendall(f"{file_size}\n".encode())
 
-                    # 2. Send zip file size
-                    conn.sendall(f"{file_size}\n".encode())
+                        with open(zip_path, 'rb') as f:
+                            while chunk := f.read(BUFFER_SIZE):
+                                conn.sendall(chunk)
 
-                    # 3. Send zip file content
-                    with open(zip_path, 'rb') as f:
-                        while chunk := f.read(BUFFER_SIZE):
-                            conn.sendall(chunk)
+                        print(f"[SERVER] Sent random policy {selected_policy_id} to client (size: {file_size} bytes)")
 
-                    print(f"[SERVER] Sent random policy {selected_policy_id} to client (size: {file_size} bytes)")
-                    # Clean up
-                    os.remove(zip_path)
+                    # ==== 清理 zip 文件和临时目录 ====
+                    try:
+                        # remove_later(zip_path)
+                        # os.remove(zip_path)
+                        remove_later(unique_tmp_dir)
+                        # os.rmdir(unique_tmp_dir)  # 删除目录本身
+                    except Exception as e:
+                        print(f"[SERVER WARNING] Failed to clean temp files: {e}")
 
                 elif msg.startswith("SEND_GRADIENT"):
                     _, policy_id, file_size_str = msg.split(SEPARATOR)

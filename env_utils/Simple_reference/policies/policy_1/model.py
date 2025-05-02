@@ -10,7 +10,6 @@ class Actor(nn.Module):
         super(Actor, self).__init__()
         self.fc1 = nn.Linear(input_dim, 256)
         self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 128)
         self.policy_head = nn.Linear(128, action_dim)  # Discrete action space: raw action values
         self.action_type = "discrete"  # Change to "continuous" if using continuous actions
 
@@ -20,7 +19,6 @@ class Actor(nn.Module):
      
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = F.relu(self.fc3(x))
         policy = self.policy_head(x)  # For discrete: logits, for continuous: action parameters
         return policy, state
 
@@ -33,7 +31,6 @@ class Critic(nn.Module):
         super(Critic, self).__init__()
         self.fc1 = nn.Linear(input_dim, 256)
         self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 128)
         self.value_head = nn.Linear(128, 1)  # Output state value
 
     def forward(self, x, state = None, info = None):
@@ -42,7 +39,6 @@ class Critic(nn.Module):
             
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = F.relu(self.fc3(x))
         value = self.value_head(x)
         return value
 

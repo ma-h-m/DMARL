@@ -1,4 +1,64 @@
 {
+    "policy_3": {
+        "agent_id": "agent_0",
+        "policy_id": "policy_3",
+        "idx": 1,
+        "optimizer_config": {
+            "lr": 0.0001,
+            "optimizer": "Adam"
+        },
+        "training_params": {
+            "batch_size": 64,
+            "gamma": 0.99,
+            "learning_rate": 0.0003
+        },
+        "observation_shape": 21,
+        "action_shape": 50,
+        "description": "A2C",
+        "created_at": "2025-03-10T08:30:00",
+        "train_steps": 6,
+        "elapsed_time_seconds": 33.7450647354126
+    },
+    "policy_4": {
+        "agent_id": "agent_1",
+        "policy_id": "policy_4",
+        "idx": 2,
+        "optimizer_config": {
+            "lr": 0.0001,
+            "optimizer": "Adam"
+        },
+        "training_params": {
+            "batch_size": 64,
+            "gamma": 0.99,
+            "learning_rate": 0.0003
+        },
+        "observation_shape": 21,
+        "action_shape": 50,
+        "description": "A2C",
+        "created_at": "2025-03-10T08:30:00",
+        "train_steps": 6,
+        "elapsed_time_seconds": 33.75250244140625
+    },
+    "policy_2": {
+        "agent_id": "agent_1",
+        "policy_id": "policy_2",
+        "idx": 2,
+        "optimizer_config": {
+            "lr": 0.0001,
+            "optimizer": "Adam"
+        },
+        "training_params": {
+            "batch_size": 64,
+            "gamma": 0.99,
+            "learning_rate": 0.0003
+        },
+        "observation_shape": 21,
+        "action_shape": 50,
+        "description": "A2C",
+        "created_at": "2025-03-10T08:30:00",
+        "train_steps": 6,
+        "elapsed_time_seconds": 38.046775817871094
+    },
     "policy_1": {
         "agent_id": "agent_0",
         "policy_id": "policy_1",
@@ -12,10 +72,11 @@
             "gamma": 0.99,
             "learning_rate": 0.0003
         },
-        "observation_shape": 4,
-        "action_shape": 5,
+        "observation_shape": 21,
+        "action_shape": 50,
         "description": "A2C",
         "created_at": "2025-03-10T08:30:00",
-        "train_steps": 6241
+        "train_steps": 6,
+        "elapsed_time_seconds": 38.097124338150024
     }
 }

@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
         # 本地训练
         for i in range(1000):
-            gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=2)
+            gradients = train(agent_info_list=agent_info_list, epochs=1, batch_size=32)
             # agent = agent_info_list[0]['policy_instance']
             # agent.optimizer.step()
 

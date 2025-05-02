@@ -1,0 +1,445 @@
+/home/mhm/.local/lib/python3.12/site-packages/tianshou/policy/base.py:304: DeprecationWarning: __array__ implementation doesn't accept a copy keyword, so passing copy=False failed. __array__ must implement 'dtype' and 'copy' keyword arguments. To learn more, see the migration guide https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword
+  obs = np.array(obs)  # convert array-like to array (e.g. LazyFrames)
+Removed existing model at server/policies/policy_3/model.pt
+Removed existing optimizer at server/policies/policy_3/optimizer.pt
+Reset and saved new model and optimizer for policy_3
+Removed existing model at server/policies/policy_4/model.pt
+Removed existing optimizer at server/policies/policy_4/optimizer.pt
+Reset and saved new model and optimizer for policy_4
+Removed existing model at server/policies/policy_2/model.pt
+Removed existing optimizer at server/policies/policy_2/optimizer.pt
+Reset and saved new model and optimizer for policy_2
+Removed existing model at server/policies/policy_1/model.pt
+Removed existing optimizer at server/policies/policy_1/optimizer.pt
+Reset and saved new model and optimizer for policy_1
+Removing existing optimizers directory server/optimizers
+Saved optimizer for policy_3 to server/optimizers/policy_3_optimizer.pt
+Saved optimizer for policy_4 to server/optimizers/policy_4_optimizer.pt
+Saved optimizer for policy_2 to server/optimizers/policy_2_optimizer.pt
+Saved optimizer for policy_1 to server/optimizers/policy_1_optimizer.pt
+Server state reset. Policies in server/policies and optimizers in server/optimizers
+Removed existing metadata at server/policy_metadata.json
+[INIT] Policy metadata initialized with 4 policies.
+Server state reset. Metadata initialized at server/policy_metadata.json
+All gradient files removed from server/gradients
+Server state reset. All gradients removed from server/gradients
+Server state reset. All checkpoints removed from server/policies/checkpoints
+Removing existing tb_logs directory
+[EVAL THREAD] Running evaluation...
+[EVAL THREAD] Evaluation loop started (interval = 10s)
+[GradientManager] Worker is running and listening for gradient updates...
+[Debug] Queue_id for gradient_worker:  139815947344096
+[GradientManager] Gradient worker started.
+[SERVER] Listening on 127.0.0.1:9999
+[SERVER] Connected by ('127.0.0.1', 57814)
+[SERVER] Connected by ('127.0.0.1', 57830)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_1
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_1
+[SERVER] Sent random policy policy_1 to client (size: 183891 bytes)
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_2
+[SERVER ERROR] [Errno 2] No such file or directory: 'server/tmp/policy_1.zip'
+[SERVER] Connection with ('127.0.0.1', 57830) closed
+[SERVER] Connected by ('127.0.0.1', 57834)
+[SERVER] Connected by ('127.0.0.1', 57844)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_3
+[SERVER] Sent random policy policy_2 to client (size: 186641 bytes)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_3
+[SERVER] Sent random policy policy_3 to client (size: 183829 bytes)
+[SERVER ERROR] [Errno 2] No such file or directory: 'server/tmp/policy_3.zip'
+[SERVER] Connection with ('127.0.0.1', 57834) closed
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_2
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_2 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_2'
+[GradientManager] Waiting for lock on policy policy_2
+[GradientManager] Applying gradient update for policy_2
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_1
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_1 enqueued for update.
+[SERVER] Connected by ('127.0.0.1', 37308)
+[SERVER] Connection with ('127.0.0.1', 57814) closed
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_3
+[SERVER] Sent random policy policy_3 to client (size: 183829 bytes)
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_4
+[GradientManager] Updated parameters for policy_2
+[GradientManager] Removed gradient file server/gradients/policy_2.pt
+[GradientManager] Gradient update applied for policy_2
+[GradientManager] Got policy_id from queue: 'policy_1'
+[GradientManager] Waiting for lock on policy policy_1
+[GradientManager] Applying gradient update for policy_1
+[SERVER] Sent random policy policy_4 to client (size: 183853 bytes)
+[GradientManager] Updated parameters for policy_1
+[GradientManager] Removed gradient file server/gradients/policy_1.pt
+[GradientManager] Gradient update applied for policy_1
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_3
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_3 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_3'
+[GradientManager] Waiting for lock on policy policy_3
+[GradientManager] Applying gradient update for policy_3
+[GradientManager] Updated parameters for policy_3
+[GradientManager] Removed gradient file server/gradients/policy_3.pt
+[GradientManager] Gradient update applied for policy_3
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_4
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_4 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_4'
+[GradientManager] Waiting for lock on policy policy_4
+[GradientManager] Applying gradient update for policy_4
+[SERVER] Connection with ('127.0.0.1', 37308) closed
+[SERVER] Connected by ('127.0.0.1', 52096)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_3
+[SERVER] Sent random policy policy_3 to client (size: 183783 bytes)
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_4
+[GradientManager] Updated parameters for policy_4
+[GradientManager] Removed gradient file server/gradients/policy_4.pt
+[GradientManager] Gradient update applied for policy_4
+[SERVER] Sent random policy policy_4 to client (size: 183874 bytes)
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_3
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_3 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_3'
+[GradientManager] Waiting for lock on policy policy_3
+[GradientManager] Applying gradient update for policy_3
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 52096) closed
+[SERVER] Connected by ('127.0.0.1', 59060)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 59060) closed
+[SERVER] Connected by ('127.0.0.1', 59066)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 59066) closed
+[SERVER] Connected by ('127.0.0.1', 59082)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 59082) closed
+[SERVER] Connected by ('127.0.0.1', 59094)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 59094) closed
+[SERVER] Connected by ('127.0.0.1', 59102)
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_4
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_4 enqueued for update.
+[SERVER] Connected by ('127.0.0.1', 59110)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_3
+[SERVER] Connection with ('127.0.0.1', 59102) closed
+[GradientManager] Updated parameters for policy_3
+[GradientManager] Removed gradient file server/gradients/policy_3.pt
+[GradientManager] Gradient update applied for policy_3
+[GradientManager] Got policy_id from queue: 'policy_4'
+[GradientManager] Waiting for lock on policy policy_4
+[GradientManager] Applying gradient update for policy_4
+[SERVER] Sent random policy policy_3 to client (size: 183818 bytes)
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_4
+[GradientManager] Updated parameters for policy_4
+[GradientManager] Removed gradient file server/gradients/policy_4.pt
+[GradientManager] Gradient update applied for policy_4
+[SERVER] Sent random policy policy_4 to client (size: 183851 bytes)
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_3
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_3 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_3'
+[GradientManager] Waiting for lock on policy policy_3
+[GradientManager] Applying gradient update for policy_3
+[GradientManager] Updated parameters for policy_3
+[GradientManager] Removed gradient file server/gradients/policy_3.pt
+[GradientManager] Gradient update applied for policy_3
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_4
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_4 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_4'
+[GradientManager] Waiting for lock on policy policy_4
+[GradientManager] Applying gradient update for policy_4
+[SERVER] Connection with ('127.0.0.1', 59110) closed
+[SERVER] Connected by ('127.0.0.1', 33412)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_1
+[SERVER] Sent random policy policy_1 to client (size: 183891 bytes)
+[GradientManager] Updated parameters for policy_4
+[GradientManager] Removed gradient file server/gradients/policy_4.pt
+[GradientManager] Gradient update applied for policy_4
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_2
+[SERVER] Sent random policy policy_2 to client (size: 186667 bytes)
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_2
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_2 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_2'
+[GradientManager] Waiting for lock on policy policy_2
+[GradientManager] Applying gradient update for policy_2
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_1
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_1 enqueued for update.
+[SERVER] Connection with ('127.0.0.1', 33412) closed
+[SERVER] Connected by ('127.0.0.1', 36312)
+[GradientManager] Updated parameters for policy_2
+[GradientManager] Removed gradient file server/gradients/policy_2.pt
+[GradientManager] Gradient update applied for policy_2
+[GradientManager] Got policy_id from queue: 'policy_1'
+[GradientManager] Waiting for lock on policy policy_1
+[GradientManager] Applying gradient update for policy_1
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_1
+[GradientManager] Updated parameters for policy_1
+[GradientManager] Removed gradient file server/gradients/policy_1.pt
+[GradientManager] Gradient update applied for policy_1
+[SERVER] Sent random policy policy_1 to client (size: 183889 bytes)
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_2
+[SERVER] Sent random policy policy_2 to client (size: 186700 bytes)
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_2
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_2 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_2'
+[GradientManager] Waiting for lock on policy policy_2
+[GradientManager] Applying gradient update for policy_2
+[GradientManager] Updated parameters for policy_2
+[GradientManager] Removed gradient file server/gradients/policy_2.pt
+[GradientManager] Gradient update applied for policy_2
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_1
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_1 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_1'
+[GradientManager] Waiting for lock on policy policy_1
+[GradientManager] Applying gradient update for policy_1
+[SERVER] Connection with ('127.0.0.1', 36312) closed
+[SERVER] Connected by ('127.0.0.1', 35768)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_1
+[GradientManager] Updated parameters for policy_1
+[GradientManager] Removed gradient file server/gradients/policy_1.pt
+[GradientManager] Gradient update applied for policy_1
+[SERVER] Sent random policy policy_1 to client (size: 183866 bytes)
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_4
+[SERVER] Sent random policy policy_4 to client (size: 183896 bytes)
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_4
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_4 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_4'
+[GradientManager] Waiting for lock on policy policy_4
+[GradientManager] Applying gradient update for policy_4
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connected by ('127.0.0.1', 38318)
+[SERVER] Connection with ('127.0.0.1', 35768) closed
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connected by ('127.0.0.1', 38330)
+[SERVER] Connection with ('127.0.0.1', 38318) closed
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38330) closed
+[SERVER] Connected by ('127.0.0.1', 38334)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38334) closed
+[SERVER] Connected by ('127.0.0.1', 38350)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38350) closed
+[SERVER] Connected by ('127.0.0.1', 38358)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connected by ('127.0.0.1', 38374)
+[SERVER] Connection with ('127.0.0.1', 38358) closed
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connected by ('127.0.0.1', 38386)
+[SERVER] Connection with ('127.0.0.1', 38374) closed
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38386) closed
+[SERVER] Connected by ('127.0.0.1', 38398)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38398) closed
+[SERVER] Connected by ('127.0.0.1', 38412)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38412) closed
+[SERVER] Connected by ('127.0.0.1', 38424)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38424) closed
+[SERVER] Connected by ('127.0.0.1', 38434)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38434) closed
+[SERVER] Connected by ('127.0.0.1', 38448)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38448) closed
+[SERVER] Connected by ('127.0.0.1', 38460)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38460) closed
+[SERVER] Connected by ('127.0.0.1', 38464)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38464) closed
+[SERVER] Connected by ('127.0.0.1', 38472)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38472) closed
+[SERVER] Connected by ('127.0.0.1', 38476)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38476) closed
+[SERVER] Connected by ('127.0.0.1', 38490)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38490) closed
+[SERVER] Connected by ('127.0.0.1', 38506)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38506) closed
+[SERVER] Connected by ('127.0.0.1', 38508)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38508) closed
+[SERVER] Connected by ('127.0.0.1', 38522)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38522) closed
+[SERVER] Connected by ('127.0.0.1', 38528)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38528) closed
+[SERVER] Connected by ('127.0.0.1', 38540)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38540) closed
+[SERVER] Connected by ('127.0.0.1', 38548)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38548) closed
+[SERVER] Connected by ('127.0.0.1', 38554)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38554) closed
+[SERVER] Connected by ('127.0.0.1', 38556)
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_1
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_1 enqueued for update.
+[SERVER] Connection with ('127.0.0.1', 38556) closed
+[SERVER] Connected by ('127.0.0.1', 38568)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_1
+[SERVER] Sent random policy policy_1 to client (size: 183866 bytes)
+[GradientManager] Updated parameters for policy_4
+[GradientManager] Removed gradient file server/gradients/policy_4.pt
+[GradientManager] Gradient update applied for policy_4
+[GradientManager] Got policy_id from queue: 'policy_1'
+[GradientManager] Waiting for lock on policy policy_1
+[GradientManager] Applying gradient update for policy_1
+[GradientManager] Updated parameters for policy_1
+[GradientManager] Removed gradient file server/gradients/policy_1.pt
+[GradientManager] Gradient update applied for policy_1
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_4
+[SERVER] Sent random policy policy_4 to client (size: 183853 bytes)
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_4
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_4 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_4'
+[GradientManager] Waiting for lock on policy policy_4
+[GradientManager] Applying gradient update for policy_4
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 38568) closed
+[SERVER] Connected by ('127.0.0.1', 37440)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 37440) closed
+[SERVER] Connected by ('127.0.0.1', 37446)
+[SERVER ERROR] 'utf-8' codec can't decode byte 0x80 in position 113: invalid start byte
+[SERVER] Connection with ('127.0.0.1', 37446) closed
+[SERVER] Connected by ('127.0.0.1', 37462)
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_1
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_1 enqueued for update.
+[SERVER] Connection with ('127.0.0.1', 37462) closed
+[GradientManager] Updated parameters for policy_4
+[GradientManager] Removed gradient file server/gradients/policy_4.pt
+[GradientManager] Gradient update applied for policy_4
+[GradientManager] Got policy_id from queue: 'policy_1'
+[GradientManager] Waiting for lock on policy policy_1
+[GradientManager] Applying gradient update for policy_1
+[SERVER] Connected by ('127.0.0.1', 37472)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_3
+[SERVER] Sent random policy policy_3 to client (size: 183788 bytes)
+[GradientManager] Updated parameters for policy_1
+[GradientManager] Removed gradient file server/gradients/policy_1.pt
+[GradientManager] Gradient update applied for policy_1
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_4
+[SERVER] Sent random policy policy_4 to client (size: 183835 bytes)
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_3
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_3 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_3'
+[GradientManager] Waiting for lock on policy policy_3
+[GradientManager] Applying gradient update for policy_3
+[GradientManager] Updated parameters for policy_3
+[GradientManager] Removed gradient file server/gradients/policy_3.pt
+[GradientManager] Gradient update applied for policy_3
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_4
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_4 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_4'
+[GradientManager] Waiting for lock on policy policy_4
+[GradientManager] Applying gradient update for policy_4
+[SERVER] Connection with ('127.0.0.1', 37472) closed
+[SERVER] Connected by ('127.0.0.1', 48358)
+[SERVER] Client requested random policy for agent_id: agent_0
+[SERVER] Selected policy: policy_3
+[SERVER] Sent random policy policy_3 to client (size: 183799 bytes)
+[SERVER] Client requested random policy for agent_id: agent_1
+[SERVER] Selected policy: policy_2
+[SERVER] Sent random policy policy_2 to client (size: 186638 bytes)
+[GradientManager] Updated parameters for policy_4
+[GradientManager] Removed gradient file server/gradients/policy_4.pt
+[GradientManager] Gradient update applied for policy_4
+[EVAL THREAD] Running evaluation...
+[EVAL] Evaluation results updated and saved to server/eval_results.json
+[TENSORBOARD] Logs refreshed at server/tb_logs
+[Debug] Queue_id for enqueue_gradient_update:  139815947344096
+[GradientManager] Enqueueing policy_3
+[GradientManager] Queue size is now: 1
+[SERVER] Gradient for policy_3 enqueued for update.
+[GradientManager] Got policy_id from queue: 'policy_3'
+[GradientManager] Waiting for lock on policy policy_3
+[GradientManager] Applying gradient update for policy_3
+[GradientManager] Updated parameters for policy_3
+[GradientManager] Removed gradient file server/gradients/policy_3.pt
+[GradientManager] Gradient update applied for policy_3
+[Debug] Queue_id for enqueue_gradient_update:  

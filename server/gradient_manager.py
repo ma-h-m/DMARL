@@ -9,6 +9,9 @@ import importlib.util
 from typing import Dict
 
 from utils import save_policy_checkpoint
+import time
+from server.utils import server_start_time
+import server.utils as utils
 
 # === Lock pool for per-policy gradient access ===
 _policy_locks: Dict[str, threading.Lock] = {}
@@ -107,8 +110,9 @@ def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str
             policy_metadata[policy_id] = {}
 
         # Increment the "train_steps" value
-        train_steps = policy_metadata[policy_id].get("train_steps", 0)
-        policy_metadata[policy_id]["train_steps"] = train_steps + 1
+        train_steps = policy_metadata[policy_id].get("train_steps", 0) + 1
+        policy_metadata[policy_id]["train_steps"] = train_steps 
+        policy_metadata[policy_id]["elapsed_time_seconds"] = time.time() - server_start_time
 
         with open(policy_metadata_path, 'w') as f:
             json.dump(policy_metadata, f, indent=4)
@@ -117,13 +121,21 @@ def apply_gradient_update(policy_id: str, gradients_path: str, policies_dir: str
         if train_steps % 100 == 0:  # Save every 10 steps
             checkpoint_path = os.path.join(policies_dir, f"checkpoints")
             save_policy_checkpoint(policy_id, policy_path, train_steps, checkpoint_root=checkpoint_path)
+        MAX_TRAIN_STEPS = utils.MAX_TRAIN_STEPS
+        # print(f"[GradientManager] MAX_TRAIN_STEPS is {MAX_TRAIN_STEPS}")
+        if MAX_TRAIN_STEPS != -1 and len(policy_metadata) > 0:
+            # print(f"[GradientManager] MAX_TRAIN_STEPS is {MAX_TRAIN_STEPS}")
+            all_reached = all(info.get("train_steps", 0) >= MAX_TRAIN_STEPS for info in policy_metadata.values())
+            if all_reached:
+                print("[GradientManager] All policies reached maximum training steps. Shutting down server...")
+                os._exit(0)  # 强制退出整个Python进程
 
 
 
 # === Worker Thread ===
 def gradient_worker(gradients_path: str, policies_dir: str, optimizer_dir: str):
     print("[GradientManager] Worker is running and listening for gradient updates...")
-    print("[Debug] Queue_id for gradient_worker: ", id(gradient_update_queue))
+    # print("[Debug] Queue_id for gradient_worker: ", id(gradient_update_queue))
 
     while True:
         policy_id = gradient_update_queue.get()

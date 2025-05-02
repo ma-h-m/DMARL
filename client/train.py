@@ -179,7 +179,7 @@ def sample_trajectory(agent_info_list, batch_size=4096):
             step_count += 1
 
     return trajectories
-
+import random
 
 def train(epochs = 10, agent_info_list = None, batch_size = 4096):
 
@@ -194,6 +194,8 @@ def train(epochs = 10, agent_info_list = None, batch_size = 4096):
         for agent_info in agent_info_list:
             if not agent_info["trainable"]:
                 continue
+            # if random.random() < 0.5:
+            #     continue
             agent_data = traj[agent_info["agent_id"]]
             batch = Batch({
                 "obs": [step["obs"] for step in agent_data],
